@@ -1,4 +1,4 @@
-# Sports Database Project (CS300)
+# Sports Database Project (CS2300)
 Source code for a web-based sports database. Created by Benjamin Biehl and Brant Bremer.
 
 ## Setup for Windows
