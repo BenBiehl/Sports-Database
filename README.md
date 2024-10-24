@@ -18,3 +18,14 @@ Run the following command in console to download Django:
 ```console
 python -m pip install Django
 ```
+
+## TODO
+- [x] Setup Django
+- [x] Initialize Database
+- [ ] Setup Login
+- [ ] Add all necessary classes
+- [ ] Main page
+- [ ] User page
+- [ ] Sports page
+- [ ] Functions
+- [ ] UI
