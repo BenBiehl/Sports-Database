@@ -1,6 +1,7 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 from .models import User
 
-def index(request):
-    return HttpResponse("Not logged in")
+def landing_page(request):
+    return render(request, "main/landingpage.html")
