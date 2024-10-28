@@ -2,7 +2,8 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    userName = models.CharField(max_length=20, primary_key=True)
+    id = models.IntegerField(primary_key=True)
+    userName = models.CharField(max_length=20)
     passWord = models.CharField(max_length=20)
     isAdmin = models.BooleanField(default=False)
     teamName = models.CharField(max_length=20)
@@ -10,12 +11,12 @@ class User(models.Model):
 
 class Athlete(models.Model):
     id = models.IntegerField(primary_key=True)
-    height = models.CharField(max_length=5)
-    weight = models.CharField(max_length=10)
+    height = models.CharField(max_length=5, blank=True)
+    weight = models.CharField(max_length=10, blank=True)
     firstName = models.CharField(max_length=20)
     mInit = models.CharField(max_length=1)
     lastName = models.CharField(max_length=20)
-    birthDate = models.DateField()
+    birthDate = models.DateField(blank=True)
     age = models.IntegerField()
     wins = models.IntegerField()
     losses = models.IntegerField()

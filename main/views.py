@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 
 from .models import User
 
@@ -13,3 +13,7 @@ def login_page(request):
 
 def signup_page(request):
     return render(request, "main/signup_page.html")
+
+def user_page(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    return render(request, "main/user_page.html", {"user": user})
