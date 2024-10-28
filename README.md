@@ -35,8 +35,8 @@ And follow the steps to create a new admin user.
 If you want to add tables to the database itself, navigate to *main/models.py*, and add a class.
 Make sure to migrate the changes to the database by running the following commands:
 ```console
-python manage.py migrate
 python manage.py makemigrations main
+python manage.py migrate
 ```
 
 To update the changes in the admin page, naviage to *main/admin.py*, and import the class.
@@ -50,8 +50,8 @@ To add a new url, naviage to *main/urls.py*, and update the url path there.
 - [x] Initialize Database
 - [ ] Setup Login
 - [ ] Add all necessary classes
-- [ ] Main page
-- [ ] User page
+- [ ] Main page (skeleton done)
+- [ ] User page (skelton done)
 - [ ] Sports page
 - [ ] Functions
 - [ ] UI
