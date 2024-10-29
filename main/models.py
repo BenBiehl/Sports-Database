@@ -1,16 +1,22 @@
 from django.db import models
 
 # Create your models here.
+class GlobalStats(models.Model):
+    numUsers = models.IntegerField()
+
 class User(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     userName = models.CharField(max_length=20)
     passWord = models.CharField(max_length=20)
     isAdmin = models.BooleanField(default=False)
-    teamName = models.CharField(max_length=20)
-    userView = models.IntegerField(default=1)
+    teamName = models.CharField(max_length=20, blank=True)
+    userView = models.IntegerField(default=1, blank=True)
+
+    def __str__(self):
+        return self.userName
 
 class Athlete(models.Model):
-    id = models.IntegerField(primary_key=True)
+    id = models.AutoField(primary_key=True)
     height = models.CharField(max_length=5, blank=True)
     weight = models.CharField(max_length=10, blank=True)
     firstName = models.CharField(max_length=20)
