@@ -4,7 +4,7 @@ from django.db.models import F
 from django.contrib import messages
 
 from .models import User, GlobalStats
-from .forms import LogSignForm
+from .forms import LogSignForm, ProfileForm
 
 def landing_page(request):
     logged_in = request.session.get('logged_in', False)
@@ -92,5 +92,25 @@ def signup_page(request):
 
 def user_page(request, user_name):
     user = get_object_or_404(User, pk=user_name)
+    invalid_info = False
+    form = ProfileForm()
 
-    return render(request, "main/user_page.html", {"user": user})
+    if request.method == "POST":
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            favorite_team = form.cleaned_data["fav_team"]
+            user.teamName = favorite_team
+            user.save()
+        else:
+            form = ProfileForm()
+            invalid_info = True
+    else:
+        form = ProfileForm()
+
+    context = {
+        "user": user,
+        "form": form,
+        "invalid_info": invalid_info
+    }
+
+    return render(request, "main/user_page.html", context)

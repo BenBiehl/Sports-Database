@@ -5,6 +5,11 @@
 <p>User is not an admin</p>
 {% endif %}
 <p>Favorite Team: {{ user.teamName }}</p>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
+</form>
 <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
     <button type="submit">Go back</button>
 </form>
