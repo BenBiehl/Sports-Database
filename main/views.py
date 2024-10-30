@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.db.models import F
 
 from .models import User, GlobalStats
 from .forms import SignupForm
@@ -20,7 +21,7 @@ def signup_page(request):
             password = form.cleaned_data["password"]
             new_user = User(userName = user_name, passWord = password)
             new_user.save()
-            GlobalStats.objects.filter(id=1).update(value=F('numUsers') + 1)
+            GlobalStats.objects.filter(id=1).update(numUsers=F('numUsers') + 1)
     else:
         form = SignupForm()
 
