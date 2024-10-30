@@ -48,7 +48,7 @@ To add a new url, naviage to *main/urls.py*, and update the url path there.
 ## TODO
 - [x] Setup Django
 - [x] Initialize Database
-- [ ] Setup Login
+- [x] Setup Login
 - [ ] Add all necessary classes
 - [ ] Main page (skeleton done)
 - [ ] User page (skelton done)
