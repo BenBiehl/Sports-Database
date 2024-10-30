@@ -1,8 +1,10 @@
 <h1>{{ user.userName }}'s Profile</h1>
 {% if user.isAdmin %}
-    <p>User is an admin</p>
+<p>User is an admin</p>
 {% else %}
-    <p>User is not an admin</p>
+<p>User is not an admin</p>
 {% endif %}
 <p>Favorite Team: {{ user.teamName }}</p>
-<a href="{% url 'landing_page' %}">Go back</a>
+<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+    <button type="submit">Go back</button>
+</form>

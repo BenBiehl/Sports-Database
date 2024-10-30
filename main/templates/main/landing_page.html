@@ -1,3 +1,18 @@
 <h1>Landing Page</h1>
-<a href="{% url 'login_page' %}">Login</a>
-<a href="{% url 'signup_page' %}">Signup</a>
+{% if not logged_in %}
+<form action="{% url 'login_page' %}" method="get" style="display:inline;">
+    <button type="submit">Log in</button>
+</form>
+<form action="{% url 'signup_page' %}" method="get" style="display:inline;">
+    <button type="submit">Sign in</button>
+</form>
+{% else %}
+<h3>Welcome, {{ curr_user_name }}</h3>
+<form action="{% url 'user_page' curr_user_name %}" method="get" style="display:inline;">
+    <button type="submit">Your Profile</button>
+</form>
+<form action="{% url 'logout' %}" method="post" style="display:inline;">
+    {% csrf_token %}
+    <input type="submit" value="Logout">
+</form>
+{% endif %}

@@ -5,5 +5,14 @@
     {{ form }}
     <input type="submit" value="Submit">
 </form>
-<a href="{% url 'login_page' %}">Log in</a>
-<a href="{% url 'landing_page' %}">Go back</a>
+{% if user_taken %}
+<p>Username already taken, try another one.</p>
+{% elif invalid_info %}
+<p>Invalid User/Password.</p>
+{% endif %}
+<form action="{% url 'login_page' %}" method="get" style="display:inline;">
+    <button type="submit">Log in</button>
+</form>
+<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+    <button type="submit">Go back</button>
+</form>

@@ -1,10 +1,20 @@
 <h1>Login Page</h1>
 <h2>Login:</h2>
-<form>
-    <label for="username">User Name:</label>
-    <input type="text" id="username" name="username"><br><br>
-    <label for="password">Password:</label>
-    <input type="password" id="password" name="password"><br><br>
+<form method="post">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" value="Submit">
 </form>
-<a href="{% url 'signup_page' %}">Sign in</a>
-<a href="{% url 'landing_page' %}">Go back</a>
+{% if invalid_user %}
+<p>No User registered with this Username.</p>
+{% elif invalid_password %}
+<p>Incorrect Password.</p>
+{% elif invalid_info %}
+<p>Invalid User/Password.</p>
+{% endif %}
+<form action="{% url 'signup_page' %}" method="get" style="display:inline;">
+    <button type="submit">Sign in</button>
+</form>
+<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+    <button type="submit">Go back</button>
+</form>

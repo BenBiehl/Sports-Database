@@ -5,8 +5,7 @@ class GlobalStats(models.Model):
     numUsers = models.IntegerField()
 
 class User(models.Model):
-    id = models.AutoField(primary_key=True)
-    userName = models.CharField(max_length=20)
+    userName = models.CharField(max_length=20, primary_key=True)
     passWord = models.CharField(max_length=20)
     isAdmin = models.BooleanField(default=False)
     teamName = models.CharField(max_length=20, blank=True)
