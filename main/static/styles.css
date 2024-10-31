@@ -19,10 +19,22 @@ body {
     max-width: 400px;
 }
 
+.warning {
+    color: rgb(222, 222, 222);
+}
+
 /* Heading styles */
 h1 {
     font-size: 2em;
     margin-bottom: 15px;
+}
+
+.form {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    
 }
 
 /* Button styling */

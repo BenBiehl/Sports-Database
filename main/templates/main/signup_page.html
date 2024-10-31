@@ -1,18 +1,37 @@
-<h1>Signup Page</h1>
-<h2>Signup:</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-{% if user_taken %}
-<p>Username already taken, try another one.</p>
-{% elif invalid_info %}
-<p>Invalid User/Password.</p>
-{% endif %}
-<form action="{% url 'login_page' %}" method="get" style="display:inline;">
-    <button type="submit">Log in</button>
-</form>
-<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
-    <button type="submit">Go back</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <!-- Link to CSS file using the static template tag -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Signup Page</h1>
+
+        <div class="form">
+            <form method="post", style="display: inline;">
+                {% csrf_token %}
+                {{ form }}
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+
+        {% if user_taken %}
+        <p class="warning">Username already taken, try another one.</p>
+        {% elif invalid_info %}
+        <p class="warning">Invalid User/Password.</p>
+        {% endif %}
+
+        <form action="{% url 'login_page' %}" method="get" style="display:inline;">
+            <button type="submit">Log in</button>
+        </form>
+        <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+            <button type="submit">Go back</button>
+        </form>
+    </div>
+</body>
+</html>
