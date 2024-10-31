@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import F
 from django.contrib import messages
 
-from .models import User, GlobalStats
+from .models import User, GlobalStat
 from .forms import LogSignForm, ProfileForm
 
 def landing_page(request):
@@ -72,7 +72,7 @@ def signup_page(request):
             else:
                 new_user = User(userName = user_name, passWord = password)
                 new_user.save()
-                GlobalStats.objects.filter(id=1).update(numUsers=F('numUsers') + 1)
+                GlobalStat.objects.filter(id=1).update(numUsers=F('numUsers') + 1)
                 request.session['logged_in'] = True
                 request.session['curr_user_name'] = user_name
                 return redirect('landing_page')
