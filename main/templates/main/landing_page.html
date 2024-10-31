@@ -1,18 +1,37 @@
-<h1>Landing Page</h1>
-{% if not logged_in %}
-<form action="{% url 'login_page' %}" method="get" style="display:inline;">
-    <button type="submit">Log in</button>
-</form>
-<form action="{% url 'signup_page' %}" method="get" style="display:inline;">
-    <button type="submit">Sign in</button>
-</form>
-{% else %}
-<h3>Welcome, {{ curr_user_name }}</h3>
-<form action="{% url 'user_page' curr_user_name %}" method="get" style="display:inline;">
-    <button type="submit">Your Profile</button>
-</form>
-<form action="{% url 'logout' %}" method="post" style="display:inline;">
-    {% csrf_token %}
-    <input type="submit" value="Logout">
-</form>
-{% endif %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landing Page</title>
+    <!-- Link to CSS file using the static template tag -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to the Sports Management Dashboard</h1>
+        
+        {% if not logged_in %}
+        <!-- Login and Sign Up Buttons for Non-Logged-In Users -->
+        <form action="{% url 'login_page' %}" method="get" style="display:inline;">
+            <button type="submit">Log in</button>
+        </form>
+        <form action="{% url 'signup_page' %}" method="get" style="display:inline;">
+            <button type="submit">Sign up</button>
+        </form>
+        
+        {% else %}
+        <!-- Welcome Message and User Options for Logged-In Users -->
+        <h3>Welcome, {{ curr_user_name }}</h3>
+        <form action="{% url 'user_page' curr_user_name %}" method="get" style="display:inline;">
+            <button type="submit">Your Profile</button>
+        </form>
+        <form action="{% url 'logout' %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit">Logout</button>
+        </form>
+        {% endif %}
+    </div>
+</body>
+</html>
