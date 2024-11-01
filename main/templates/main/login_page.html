@@ -1,20 +1,41 @@
-<h1>Login Page</h1>
-<h2>Login:</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-{% if invalid_user %}
-<p>No User registered with this Username.</p>
-{% elif invalid_password %}
-<p>Incorrect Password.</p>
-{% elif invalid_info %}
-<p>Invalid User/Password.</p>
-{% endif %}
-<form action="{% url 'signup_page' %}" method="get" style="display:inline;">
-    <button type="submit">Sign in</button>
-</form>
-<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
-    <button type="submit">Go back</button>
-</form>
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login Page</title>
+    <!-- Link to CSS file using the static template tag -->
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <h1 class="page-title">Login Page</h1>
+    <div class="login-container">
+        <h2>Login:</h2>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" class="btn-submit">
+        </form>
+        
+        <div class="error-messages">
+            {% if invalid_user %}
+            <p class="error">No User registered with this Username.</p>
+            {% elif invalid_password %}
+            <p class="error">Incorrect Password.</p>
+            {% elif invalid_info %}
+            <p class="error">Invalid User/Password.</p>
+            {% endif %}
+        </div>
+
+        <div class="additional-buttons">
+            <form action="{% url 'signup_page' %}" method="get" style="display:inline;">
+                <button type="submit" class="btn-secondary">Sign up</button>
+            </form>
+            <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+                <button type="submit" class="btn-secondary">Go back</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
