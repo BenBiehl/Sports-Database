@@ -9,30 +9,30 @@
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
 </head>
 <body>
-    <div class="container">
-        <h1>Signup Page</h1>
+    <h1 class="page-title">Signup Page</h1>
+    <div class="login-container">
+        <h2>Signup:</h2>
+        <form method="post" class="login-form">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" class="btn-submit">
+        </form>
 
-        <div class="form">
-            <form method="post", style="display: inline;">
-                {% csrf_token %}
-                {{ form.user_name }}
-                {{ form.password }}
-                <input type="submit" value="Submit" style="display: block; margin-top: 10px;">
-            </form>
+        <div class="error-messages">
+            {% if user_taken %}
+            <p class="error">Username is already taken.</p>
+            {% elif invalid_info %}
+            <p class="error">Invalid User/Password.</p>
+            {% endif %}
         </div>
 
-        {% if user_taken %}
-        <p class="warning">Username already taken, try another one.</p>
-        {% elif invalid_info %}
-        <p class="warning">Invalid User/Password.</p>
-        {% endif %}
-
-        <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
-            <button type="submit">Go back</button>
-        </form>
-        <form action="{% url 'login_page' %}" method="get" style="display:inline;">
-            <button type="submit">Log in</button>
-        </form>
-    </div>
+        <div class="additional-buttons">
+            <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+                <button type="submit" class="btn-secondary">Go back</button>
+            </form>
+            <form action="{% url 'login_page' %}" method="get" style="display:inline;">
+                <button type="submit" class="btn-secondary">Log in</button>
+            </form>
+        </div>
 </body>
 </html>

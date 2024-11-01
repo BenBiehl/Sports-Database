@@ -4,6 +4,7 @@ body {
     color: #ffffff;
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
@@ -62,7 +63,15 @@ h3 {
 }
 
 /* Login Form Styles */
+.page-title {
+    font-size: 3em;
+}
+
 .login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     max-width: 400px;
     margin: 2rem auto;
     padding: 2rem;
