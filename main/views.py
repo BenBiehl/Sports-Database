@@ -114,3 +114,15 @@ def user_page(request, user_name):
     }
 
     return render(request, "main/user_page.html", context)
+
+def baseball_page(request):
+    return render(request, "main/baseball_page.html")
+
+def basketball_page(request):
+    return render(request, "main/basketball_page.html")
+
+def soccer_page(request):
+    return render(request, "main/soccer_page.html")
+
+def football_page(request):
+    return render(request, "main/football_page.html")

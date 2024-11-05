@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Basketball Page</title>
+  <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+  <h1>Basketball Page</h1>
+  <form action="{% url 'landing_page' %}" method="get" style="display:inline;">
+    <button type="submit" class="btn-secondary">Go back</button>
+  </form>
+</body>
+</html>

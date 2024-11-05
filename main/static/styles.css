@@ -20,6 +20,12 @@ body {
     max-width: 400px;
 }
 
+.sports-container {
+    text-align: center;
+    padding: 20px;
+    max-width: 600px;
+}
+
 .warning {
     color: rgb(222, 222, 222);
 }
