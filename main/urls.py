@@ -11,5 +11,6 @@ urlpatterns = [
     path("baseball/", views.baseball_page, name="baseball_page"),
     path("basketball/", views.basketball_page, name="basketball_page"),
     path("soccer/", views.soccer_page, name="soccer_page"),
-    path("football/", views.football_page, name="football_page")
+    path("football/", views.football_page, name="football_page"),
+    path("<str:sport>/add_athlete/", views.add_athlete, name="add_athlete"),
 ]
