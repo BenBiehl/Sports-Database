@@ -6,6 +6,7 @@ from django.contrib import messages
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
 from .forms import LogSignForm, ProfileForm
 
+# Page Request Functions
 def landing_page(request):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
@@ -127,14 +128,7 @@ def sports_page(request, sport):
         except User.DoesNotExist:
             is_admin = False
 
-    if sport == "baseball":
-        stats = BaseballStat.objects.select_related('athlete').all()
-    elif sport == "basketball":
-        stats = BasketballStat.objects.select_related('athlete').all()
-    elif sport == "soccer":
-        stats = SoccerStat.objects.select_related('athlete').all()
-    else:
-        stats = FootballStat.objects.select_related('athlete').all()
+    stats = get_sports_stats(sport)
 
     if stats:
         are_stats = True
@@ -154,3 +148,15 @@ def sports_page(request, sport):
 def add_athlete(request, sport):
     context = {"sport": sport}
     return render(request, "main/add_athlete.html", context)
+
+# Other Functions
+def get_sports_stats(sport):
+    if sport == "baseball":
+        stats = BaseballStat.objects.select_related('athlete').all()
+    elif sport == "basketball":
+        stats = BasketballStat.objects.select_related('athlete').all()
+    elif sport == "soccer":
+        stats = SoccerStat.objects.select_related('athlete').all()
+    else:
+        stats = FootballStat.objects.select_related('athlete').all()
+    return stats
