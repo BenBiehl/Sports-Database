@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import F
 from django.contrib import messages
 
-from .models import User, GlobalStat
+from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
 from .forms import LogSignForm, ProfileForm
 
 def landing_page(request):
@@ -127,10 +127,26 @@ def sports_page(request, sport):
         except User.DoesNotExist:
             is_admin = False
 
+    if sport == "baseball":
+        stats = BaseballStat.objects.select_related('athlete').all()
+    elif sport == "basketball":
+        stats = BasketballStat.objects.select_related('athlete').all()
+    elif sport == "soccer":
+        stats = SoccerStat.objects.select_related('athlete').all()
+    else:
+        stats = FootballStat.objects.select_related('athlete').all()
+
+    if stats:
+        are_stats = True
+    else:
+        are_stats = False
+
     context = {
         "logged_in": logged_in,
         "is_admin": is_admin,
-        "sport": sport
+        "are_stats": are_stats,
+        "sport": sport,
+        "stats": stats
     }
 
     return render(request, "main/sports_page.html", context)

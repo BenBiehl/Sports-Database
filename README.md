@@ -49,9 +49,9 @@ To add a new url, naviage to *main/urls.py*, and update the url path there.
 - [x] Setup Django
 - [x] Initialize Database
 - [x] Setup Login
-- [ ] Add all necessary classes
-- [ ] Main page (skeleton done)
+- [x] Add all necessary classes
+- [ ] Main page (mostly done, maybe add top 5 visited athletes?)
 - [ ] User page (skelton done)
-- [ ] Sports page
-- [ ] Functions
-- [ ] UI
+- [ ] Sports page (skeleton done)
+- [ ] Functions (once athlete tables are finished, add various sorting functions)
+- [ ] UI (getting there)
