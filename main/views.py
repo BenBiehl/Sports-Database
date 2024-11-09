@@ -115,7 +115,7 @@ def user_page(request, user_name):
 
     return render(request, "main/user_page.html", context)
 
-def baseball_page(request):
+def sports_page(request, sport):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
     is_admin = False
@@ -129,67 +129,11 @@ def baseball_page(request):
 
     context = {
         "logged_in": logged_in,
-        "is_admin": is_admin
+        "is_admin": is_admin,
+        "sport": sport
     }
 
-    return render(request, "main/baseball_page.html", context)
-
-def basketball_page(request):
-    logged_in = request.session.get('logged_in', False)
-    curr_user_name = request.session.get('curr_user_name', "")
-    is_admin = False
-
-    if logged_in and curr_user_name:
-        try:
-            user = User.objects.get(userName=curr_user_name)
-            is_admin = user.isAdmin
-        except User.DoesNotExist:
-            is_admin = False
-
-    context = {
-        "logged_in": logged_in,
-        "is_admin": is_admin
-    }
-
-    return render(request, "main/basketball_page.html", context)
-
-def soccer_page(request):
-    logged_in = request.session.get('logged_in', False)
-    curr_user_name = request.session.get('curr_user_name', "")
-    is_admin = False
-
-    if logged_in and curr_user_name:
-        try:
-            user = User.objects.get(userName=curr_user_name)
-            is_admin = user.isAdmin
-        except User.DoesNotExist:
-            is_admin = False
-
-    context = {
-        "logged_in": logged_in,
-        "is_admin": is_admin
-    }
-
-    return render(request, "main/soccer_page.html", context)
-
-def football_page(request):
-    logged_in = request.session.get('logged_in', False)
-    curr_user_name = request.session.get('curr_user_name', "")
-    is_admin = False
-
-    if logged_in and curr_user_name:
-        try:
-            user = User.objects.get(userName=curr_user_name)
-            is_admin = user.isAdmin
-        except User.DoesNotExist:
-            is_admin = False
-
-    context = {
-        "logged_in": logged_in,
-        "is_admin": is_admin
-    }
-
-    return render(request, "main/football_page.html", context)
+    return render(request, "main/sports_page.html", context)
 
 def add_athlete(request, sport):
     context = {"sport": sport}

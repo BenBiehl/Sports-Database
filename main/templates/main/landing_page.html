@@ -34,16 +34,16 @@
         {% endif %}
     </div>
     <div class="additional-buttons">
-        <form action="{% url 'baseball_page' %}" method="get" style="display:inline;">
+        <form action="{% url 'sports_page' sport="baseball" %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Baseball</button>
         </form>
-        <form action="{% url 'basketball_page' %}" method="get" style="display:inline;">
+        <form action="{% url 'sports_page' sport="basketball" %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Basketball</button>
         </form>
-        <form action="{% url 'soccer_page' %}" method="get" style="display:inline;">
+        <form action="{% url 'sports_page' sport="soccer" %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Soccer</button>
         </form>
-        <form action="{% url 'football_page' %}" method="get" style="display:inline;">
+        <form action="{% url 'sports_page' sport="football" %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Football</button>
         </form>
     </div>
