@@ -4,7 +4,7 @@ from django.db.models import F
 from django.contrib import messages
 
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
-from .forms import LogSignForm, ProfileForm
+from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm
 
 # Page Request Functions
 def landing_page(request):
@@ -25,9 +25,11 @@ def login_page(request):
 
     if request.method == "POST":
         form = LogSignForm(request.POST)
+
         if form.is_valid():
             user_name = form.cleaned_data["user_name"]
             password = form.cleaned_data["password"]
+
             if User.objects.filter(userName=user_name).exists():
                 if User.objects.filter(userName=user_name, passWord=password).exists():
                     request.session['logged_in'] = True
@@ -64,9 +66,11 @@ def signup_page(request):
 
     if request.method == "POST":
         form = LogSignForm(request.POST)
+
         if form.is_valid():
             user_name = form.cleaned_data["user_name"]
             password = form.cleaned_data["password"]
+
             if User.objects.filter(userName=user_name).exists():
                 user_taken = True
                 form = LogSignForm()
@@ -98,6 +102,7 @@ def user_page(request, user_name):
 
     if request.method == "POST":
         form = ProfileForm(request.POST)
+
         if form.is_valid():
             favorite_team = form.cleaned_data["fav_team"]
             user.teamName = favorite_team
@@ -146,7 +151,41 @@ def sports_page(request, sport):
     return render(request, "main/sports_page.html", context)
 
 def add_athlete(request, sport):
-    context = {"sport": sport}
+    if request.method == "POST":
+        if sport == "baseball":
+            athlete_form = AddAthleteForm(request.POST)
+            baseball_form = BaseballForm(request.POST)
+
+            if athlete_form.is_valid() and baseball_form.is_valid():
+                athlete = Athlete(
+                    firstName = athlete_form.cleaned_data['first_name'],
+                    lastName = athlete_form.cleaned_data['last_name'],
+                    teamName = athlete_form.cleaned_data['team_name'],
+                    sport = 'Baseball'
+                )
+                athlete.save()
+
+                baseball_stats =  BaseballStat(
+                    athlete=athlete,
+                    battingAvg = baseball_form.cleaned_data['batting_avg'],
+                    homeRuns = baseball_form.cleaned_data['home_runs'],
+                    era = baseball_form.cleaned_data['era'],
+                    rbi = baseball_form.cleaned_data['rbi'],
+                    stolenBases = baseball_form.cleaned_data['stolen_bases']
+                )
+                baseball_stats.save()
+
+                return redirect('sports_page', 'baseball')
+    else:
+        athlete_form = AddAthleteForm()
+        baseball_form = BaseballForm()
+
+    context = {
+        "sport": sport,
+        "athlete_form": athlete_form,
+        "baseball_form": baseball_form
+    }
+
     return render(request, "main/add_athlete.html", context)
 
 # Other Functions

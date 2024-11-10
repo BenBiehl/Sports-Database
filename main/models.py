@@ -13,20 +13,19 @@ class Athlete(models.Model):
     ]
 
     id = models.AutoField(primary_key=True)
-    height = models.CharField(max_length=5, default='N/A')
-    weight = models.CharField(max_length=10, default='N/A')
     firstName = models.CharField(max_length=20, default='N/A')
-    mInit = models.CharField(max_length=1, default='N/A')
     lastName = models.CharField(max_length=20, default='N/A')
-    birthDate = models.DateField(blank=True)
-    age = models.IntegerField(blank=True)
-    wins = models.IntegerField(blank=True)
-    losses = models.IntegerField(blank=True)
-    joinYear = models.IntegerField(blank=True)
+    height = models.CharField(max_length=5, default='N/A',blank=True, null=True)
+    weight = models.IntegerField(blank=True, null=True)
+    birthDate = models.DateField(blank=True, null=True)
+    age = models.IntegerField(blank=True, null=True)
+    wins = models.IntegerField(blank=True, null=True)
+    losses = models.IntegerField(blank=True, null=True)
+    joinYear = models.IntegerField(blank=True, null=True)
     sport = models.CharField(max_length=20, choices=SPORT_CHOICES, default='Baseball')
     teamName = models.CharField(max_length=20, default='N/A')
-    position = models.CharField(max_length=20, default='N/A')
-    gamesPlayed = models.IntegerField(default=0)
+    position = models.CharField(max_length=20, default='N/A', blank=True, null=True)
+    gamesPlayed = models.IntegerField(default=0, blank=True, null=True)
     
     def winRate(self):
         if self.wins + self.losses == 0:
@@ -52,16 +51,16 @@ class BaseballStat(models.Model):
     battingAvg = models.IntegerField(blank=True)
     homeRuns = models.IntegerField(blank=True)
     era = models.FloatField(blank=True)
-    rbi = models.IntegerField(blank=True)
+    rbi = models.FloatField(blank=True)
     stolenBases = models.IntegerField(blank=True)
 
 class BasketballStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    pointsPG = models.IntegerField(blank=True)
-    assistsPG = models.IntegerField(blank=True)
-    reboundsPG = models.IntegerField(blank=True)
-    threePPerc = models.IntegerField(blank=True)
-    freeThrowPerc = models.IntegerField(blank=True)
+    pointsPG = models.FloatField(blank=True)
+    assistsPG = models.FloatField(blank=True)
+    reboundsPG = models.FloatField(blank=True)
+    threePPerc = models.FloatField(blank=True)
+    freeThrowPerc = models.FloatField(blank=True)
 
 class SoccerStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)

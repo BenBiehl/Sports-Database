@@ -10,5 +10,12 @@
 </head>
 <body>
     <h1>Add Athlete for {{ sport|capfirst }}</h1>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ athlete_form }}
+        {% csrf_token %}
+        {{ baseball_form }}
+        <input type="submit" value="Submit" class="btn-submit">
+    </form>
 </body>
 </html>
