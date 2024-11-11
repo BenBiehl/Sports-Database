@@ -1,4 +1,4 @@
-/* General Layout */
+/* Center the content and add some spacing */
 body {
     background-color: #1e1e1e;
     color: #ffffff;
@@ -17,77 +17,37 @@ body {
     border: 1px solid #333;
     border-radius: 10px;
     background-color: #2c2c2c;
-    max-width: 600px;
-    width: 100%;
+    max-width: 400px;
 }
 
-.profile-container {
-    width: 100%;
-    max-width: 700px;
-    background-color: #333;
+.sports-container {
+    text-align: center;
     padding: 20px;
-    border-radius: 10px;
+    max-width: 600px;
 }
 
-/* Section headers */
-h1, h2, h3 {
+.warning {
+    color: rgb(222, 222, 222);
+}
+
+h1 {
     font-size: 2em;
-    color: #fff;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 }
 
-/* Favorite Athlete Section */
-.favorite-athlete-section {
-    background-color: #444;
-    padding: 15px;
-    margin-top: 20px;
-    border-radius: 10px;
-}
-
-.favorite-athlete-form {
+.form {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-top: 40px;
+    margin-bottom: 40px;
 }
 
-.favorite-athlete-form input[type="submit"] {
-    background-color: #007acc;
-    color: #fff;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+input {
+    width: 50px;
+    margin: 10px auto;
 }
 
-.favorite-athlete-form input[type="submit"]:hover {
-    background-color: #005f99;
-}
-
-/* Favorite Athlete Info */
-.favorite-athlete-info {
-    background-color: #555;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
-
-.favorite-athlete-info p {
-    margin: 5px 0;
-}
-
-.favorite-athlete-info em {
-    font-style: italic;
-}
-
-/* Profile Info */
-.profile-container p {
-    font-size: 1.2em;
-    color: #bbb;
-}
-
-/* Button Styling */
 button {
     font-size: 1em;
     color: #ffffff;
@@ -96,18 +56,58 @@ button {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin: 10px 0;
+    margin: 5px;
 }
 
 button:hover {
     background-color: #005f99;
 }
 
-.additional-buttons {
+h3 {
+    font-size: 1.5em;
+    margin: 20px 0;
+}
+
+/* Login Form Styles */
+.page-title {
+    font-size: 3em;
+}
+
+.login-container {
     display: flex;
+    align-items: center;
     justify-content: center;
-    gap: 1rem;
-    margin-top: 1.5rem;
+    flex-direction: column;
+    max-width: 400px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #333;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"],
+.login-form input[type="email"],
+.login-form input[type="submit"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 1rem;
+    border: none;
+    border-radius: 4px;
+}
+
+.login-form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+.login-form input[type="submit"]:hover {
+    background-color: #0056b3;
 }
 
 /* Error Messages */
@@ -117,7 +117,14 @@ button:hover {
     text-align: center;
 }
 
-/* Secondary Button Styling */
+/* Button Styles */
+.additional-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
 .btn-secondary {
     padding: 10px 20px;
     background-color: #555;
