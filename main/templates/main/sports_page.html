@@ -10,7 +10,13 @@
 <body>
     <h1>{{ sport|capfirst }} Page</h1>
     {% if are_stats %}
-        <h2>There are {{ sport|capfirst }} stats</h2>
+    <table>
+        <tr>
+            {% for label in header %}
+                <th>{{ label }}</th>
+            {% endfor %}
+        </tr>
+    </table>
     {% else %}
         <h2>There aren't any {{ sport|capfirst }} stats, try adding some?</h2>
     {% endif %}

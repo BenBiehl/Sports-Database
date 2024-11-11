@@ -125,6 +125,7 @@ def sports_page(request, sport):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
     is_admin = False
+    header = table_header(sport)
 
     if logged_in and curr_user_name:
         try:
@@ -145,7 +146,8 @@ def sports_page(request, sport):
         "is_admin": is_admin,
         "are_stats": are_stats,
         "sport": sport,
-        "stats": stats
+        "stats": stats,
+        "header": header
     }
 
     return render(request, "main/sports_page.html", context)
@@ -215,7 +217,7 @@ def add_athlete(request, sport):
     context = {
         "sport": sport,
         "athlete_form": athlete_form,
-        "sport_form": sport_form
+        "sport_form": sport_form,
     }
 
     return render(request, "main/add_athlete.html", context)
@@ -231,3 +233,14 @@ def get_sports_stats(sport):
     else:
         stats = FootballStat.objects.select_related('athlete').all()
     return stats
+
+def table_header(sport):
+    if sport == "baseball":
+        header = ['Name', 'Batting Avg', 'Home Runs', 'ERA', 'RBI', 'Stolen Bases']
+    elif sport == "basketball":
+        header = ['Name', 'Points PG', 'Assists PG', 'Rebounds PG', 'Three Point %', 'Three Throw %']
+    elif sport == "soccer":
+        header = ['Name', 'Goals', 'Shots', 'Saves', 'Fouls', 'Minutes Played']
+    else:
+        header = ['Name', 'Passing Yards', 'Rushing Yards', 'Tackles', 'Sacks', 'Interceptions']
+    return header
