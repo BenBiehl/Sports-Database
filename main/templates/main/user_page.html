@@ -1,18 +1,39 @@
+{% load static %}
+
 <h1>{{ user.userName }}'s Profile</h1>
-{% if user.isAdmin %}
-<p>User is an admin</p>
-{% else %}
-<p>User is not an admin</p>
-{% endif %}
-<p>Favorite Team: {{ user.teamName }}</p>
-<form method="post">
-    {% csrf_token %}
-    {{ form }}
-    <input type="submit" value="Submit">
-</form>
-{% if invalid_info %}
-<p>Invalid Team Name.</p>
-{% endif %}
-<form action="{% url 'landing_page' %}" method="get" style="display:inline;">
-    <button type="submit">Go back</button>
-</form>
+<div class="profile-container">
+    {% if user.isAdmin %}
+    <p>User is an admin</p>
+    {% else %}
+    <p>User is not an admin</p>
+    {% endif %}
+    <p>Favorite Team: {{ user.teamName }}</p>
+
+    <!-- Favorite Athlete Management Section -->
+    <section class="favorite-athlete-section">
+        <h3>Manage Favorite Athlete</h3>
+        <form method="post" class="favorite-athlete-form">
+            {% csrf_token %}
+            {{ form }}
+            <input type="submit" value="Submit" class="btn-submit">
+        </form>
+
+        {% if user.favAthlete %}
+        <div class="favorite-athlete-info">
+            <p><strong>Favorite Athlete:</strong> {{ user.favAthlete.firstName }} {{ user.favAthlete.lastName }}</p>
+            <p><em>{{ user.favAthlete.sport }}</em> | <em>{{ user.favAthlete.teamName }}</em></p>
+        </div>
+        {% else %}
+        <p>No favorite athlete selected.</p>
+        {% endif %}
+    </section>
+    
+    <div class="additional-buttons">
+        <form action="{% url 'landing_page' %}" method="get">
+            <button type="submit" class="btn-secondary">Go back</button>
+        </form>
+    </div>
+</div>
+
+<!-- Link to the styles.css -->
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
