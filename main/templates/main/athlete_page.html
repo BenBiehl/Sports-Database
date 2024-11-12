@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Athlete Page</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <h1>{{ athlete.firstName }} {{ athlete.lastName }}</h1>
+    <p>Sport: {{ athlete.sport }}</p>
+    <p>Height: {{ athlete.height }}</p>
+    <p>Weight: {{ athlete.weight }}</p>
+    <p>Age: {{ athlete.age }}</p>
+    <p>Wins: {{ athlete.wins }}</p>
+    <p>Losses: {{ athlete.losses }}</p>
+    <p>Join Year: {{ athlete.joinYear }}</p>
+    <p>Team: {{ athlete.teamName }}</p>
+    <p>Position: {{ athlete.position }}</p>
+
+    <h2>Statistics:</h2>
+    {% if athlete.sport == 'Baseball' %}
+        <p>Batting Average: {{ athlete_stats.battingAvg }}</p>
+        <p>Home Runs: {{ athlete_stats.homeRuns }}</p>
+        <p>ERA: {{ athlete_stats.era }}</p>
+        <p>RBI: {{ athlete_stats.rbi }}</p>
+        <p>Stolen Bases: {{ athlete_stats.stolenBases }}</p>
+    {% elif athlete.sport == 'Basketball' %}
+        <p>Points per Game: {{ athlete_stats.pointsPG }}</p>
+        <p>Assists per Game: {{ athlete_stats.assistsPG }}</p>
+        <p>Rebounds per Game: {{ athlete_stats.reboundsPG }}</p>
+        <p>3-Point Percentage: {{ athlete_stats.threePPerc }}</p>
+        <p>Free Throw Percentage: {{ athlete_stats.freeThrowPerc }}</p>
+    {% elif athlete.sport == 'Soccer' %}
+        <p>Goals Scored: {{ athlete_stats.goalsScored }}</p>
+        <p>Shots: {{ athlete_stats.shots }}</p>
+        <p>Saves: {{ athlete_stats.saves }}</p>
+        <p>Fouls: {{ athlete_stats.fouls }}</p>
+        <p>Minutes Played: {{ athlete_stats.minutesPlayed }}</p>
+    {% elif athlete.sport == 'Football' %}
+        <p>Passing Yards: {{ athlete_stats.passingYards }}</p>
+        <p>Rushing Yards: {{ athlete_stats.rushingYards }}</p>
+        <p>Tackles: {{ athlete_stats.tackles }}</p>
+        <p>Sacks: {{ athlete_stats.sacks }}</p>
+        <p>Interceptions: {{ athlete_stats.interceptions }}</p>
+    {% endif %}
+    <div class="additional-buttons">
+        <form action="{% url 'sports_page' sport=sport %}" method="get" style="display:inline;">
+            <button type="submit" class="btn-secondary">Go back</button>
+        </form>
+        {% comment %} {% if logged_in %}
+            {% if is_admin %}
+                <form action="{% url 'add_athlete' sport=sport %}" method="get" style="display:inline;">
+                    <button type="submit">Edit Athlete</button>
+                </form>
+            {% endif %}
+        {% endif %} {% endcomment %}
+    </div>
+</body>
+</html>

@@ -35,6 +35,22 @@ h1 {
     margin-bottom: 15px;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+a:hover,
+a:active {
+    color: inherit;
+    text-decoration: none;
+}
+
+
 .form {
     display: flex;
     justify-content: space-between;

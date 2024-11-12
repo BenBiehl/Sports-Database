@@ -222,6 +222,44 @@ def add_athlete(request, sport):
 
     return render(request, "main/add_athlete.html", context)
 
+def athlete_page(request, sport, athlete_id):
+    logged_in = request.session.get('logged_in', False)
+    curr_user_name = request.session.get('curr_user_name', "")
+    is_admin = False
+
+    if logged_in and curr_user_name:
+        try:
+            user = User.objects.get(userName=curr_user_name)
+            is_admin = user.isAdmin
+        except User.DoesNotExist:
+            is_admin = False
+
+    athlete_id = int(athlete_id)
+    athlete = Athlete.objects.filter(id=athlete_id).first()
+
+    athlete_stats = None
+    if sport == 'baseball':
+        athlete_stats = get_object_or_404(BaseballStat, athlete=athlete)
+        sport_back = 'baseball'
+    elif sport == 'basketball':
+        athlete_stats = get_object_or_404(BasketballStat, athlete=athlete)
+        sport_back = 'basketball'
+    elif sport == 'soccer':
+        athlete_stats = get_object_or_404(SoccerStat, athlete=athlete)
+        sport_back = 'soccer'
+    elif sport == 'football':
+        athlete_stats = get_object_or_404(FootballStat, athlete=athlete)
+        sport_back = 'football'
+
+    context = {
+        "athlete": athlete,
+        "athlete_stats": athlete_stats,
+        "is_admin": is_admin,
+        "sport": sport
+    }
+
+    return render(request, "main/athlete_page.html", context)
+
 # Other Functions
 def get_sports_stats(sport):
     if sport == "baseball":

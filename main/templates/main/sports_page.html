@@ -18,7 +18,11 @@
         </tr>
         {% for stat in stats %}
         <tr>
-            <td>{{ stat.athlete.firstName }} {{ stat.athlete.lastName }}</td>
+            <td>
+                <a href="{% url 'athlete_page' sport=sport athlete_id=stat.athlete.id %}">
+                    {{ stat.athlete.firstName }} {{ stat.athlete.lastName }}
+                </a>
+            </td>
             {% if sport == "baseball" %}
                 <td>{{ stat.battingAvg }}</td>
                 <td>{{ stat.homeRuns }}</td>

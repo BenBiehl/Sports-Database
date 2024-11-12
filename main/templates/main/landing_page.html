@@ -5,7 +5,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landing Page</title>
-    <!-- Link to CSS file using the static template tag -->
     <link rel="stylesheet" href="{% static 'styles.css' %}" />
 </head>
 <body>
@@ -13,7 +12,6 @@
         <h1>Welcome to the Sports Management Dashboard</h1>
         
         {% if not logged_in %}
-        <!-- Login and Sign Up Buttons for Non-Logged-In Users -->
         <form action="{% url 'login_page' %}" method="get" style="display:inline;">
             <button type="submit">Log in</button>
         </form>
@@ -22,7 +20,6 @@
         </form>
         
         {% else %}
-        <!-- Welcome Message and User Options for Logged-In Users -->
         <h3>Welcome, {{ curr_user_name }}</h3>
         <form action="{% url 'user_page' curr_user_name %}" method="get" style="display:inline;">
             <button type="submit">Your Profile</button>

@@ -12,4 +12,5 @@ urlpatterns = [
     path("logout/", views.logout, name="logout"),
     path("<str:sport>/", views.sports_page, name ="sports_page"),
     path("<str:sport>/add_athlete/", views.add_athlete, name="add_athlete"),
+    path("<str:sport>/athlete/<str:athlete_id>", views.athlete_page, name="athlete_page")
 ]
