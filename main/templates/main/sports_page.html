@@ -16,6 +16,36 @@
                 <th>{{ label }}</th>
             {% endfor %}
         </tr>
+        {% for stat in stats %}
+        <tr>
+            <td>{{ stat.athlete.firstName }} {{ stat.athlete.lastName }}</td>
+            {% if sport == "baseball" %}
+                <td>{{ stat.battingAvg }}</td>
+                <td>{{ stat.homeRuns }}</td>
+                <td>{{ stat.era }}</td>
+                <td>{{ stat.rbi }}</td>
+                <td>{{ stat.stolenBases }}</td>
+            {% elif sport == "basketball" %}
+                <td>{{ stat.pointsPG }}</td>
+                <td>{{ stat.assistsPG }}</td>
+                <td>{{ stat.reboundsPG }}</td>
+                <td>{{ stat.threePPerc }}</td>
+                <td>{{ stat.freeThrowPerc }}</td>
+            {% elif sport == "soccer" %}
+                <td>{{ stat.goalsScored }}</td>
+                <td>{{ stat.shots }}</td>
+                <td>{{ stat.saves }}</td>
+                <td>{{ stat.fouls }}</td>
+                <td>{{ stat.minutesPlayed }}</td>
+            {% elif sport == "football" %}
+                <td>{{ stat.passingYards }}</td>
+                <td>{{ stat.rushingYards }}</td>
+                <td>{{ stat.tackles }}</td>
+                <td>{{ stat.sacks }}</td>
+                <td>{{ stat.interceptions }}</td>
+            {% endif %}
+        </tr>
+    {% endfor %}
     </table>
     {% else %}
         <h2>There aren't any {{ sport|capfirst }} stats, try adding some?</h2>

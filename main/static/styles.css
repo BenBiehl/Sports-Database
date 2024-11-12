@@ -137,3 +137,18 @@ h3 {
 .btn-secondary:hover {
     background-color: #333;
 }
+
+/* Table Styling */
+table {
+    border: 3px solid;
+    border-collapse: collapse;
+    text-align: center;
+    width: 80%;
+    table-layout: fixed;
+}
+
+th,
+td {
+    border: 3px solid;
+    padding: 10px;
+}

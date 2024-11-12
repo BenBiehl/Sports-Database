@@ -230,8 +230,10 @@ def get_sports_stats(sport):
         stats = BasketballStat.objects.select_related('athlete').all()
     elif sport == "soccer":
         stats = SoccerStat.objects.select_related('athlete').all()
-    else:
+    elif sport == "football":
         stats = FootballStat.objects.select_related('athlete').all()
+    else:
+        stats = None
     return stats
 
 def table_header(sport):
