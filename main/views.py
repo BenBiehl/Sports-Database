@@ -122,6 +122,7 @@ def user_page(request, user_name):
     return render(request, "main/user_page.html", context)
 
 def sports_page(request, sport):
+    sort_num = request.GET.get('sort_num', 0)
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
     is_admin = False
@@ -140,6 +141,9 @@ def sports_page(request, sport):
         are_stats = True
     else:
         are_stats = False
+
+    if sort_num != 0:
+        stats = sort_stats(stats, sport, sort_num)
 
     context = {
         "logged_in": logged_in,
@@ -278,9 +282,68 @@ def table_header(sport):
     if sport == "baseball":
         header = ['Name', 'Batting Avg', 'Home Runs', 'ERA', 'RBI', 'Stolen Bases']
     elif sport == "basketball":
-        header = ['Name', 'Points PG', 'Assists PG', 'Rebounds PG', 'Three Point %', 'Three Throw %']
+        header = ['Name', 'Points PG', 'Assists PG', 'Rebounds PG', 'Three Point %', 'Free Throw %']
     elif sport == "soccer":
         header = ['Name', 'Goals', 'Shots', 'Saves', 'Fouls', 'Minutes Played']
     else:
         header = ['Name', 'Passing Yards', 'Rushing Yards', 'Tackles', 'Sacks', 'Interceptions']
     return header
+
+def sort_stats(stats, sport, sort_num):
+    if sport == "baseball":
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete.firstName').values()
+            case 2:
+                stats = stats.order_by('battingAvg').values()
+            case 3:
+                stats = stats.order_by('homeRuns').values()
+            case 4:
+                stats = stats.order_by('era').values()
+            case 5:
+                stats = stats.order_by('rbi').values()
+            case 6:
+                stats = stats.order_by('stolenBases').values()
+    elif sport == "basketball":
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete.firstName').values()
+            case 2:
+                stats = stats.order_by('pointsPG').values()
+            case 3:
+                stats = stats.order_by('assistsPG').values()
+            case 4:
+                stats = stats.order_by('reboundsPG').values()
+            case 5:
+                stats = stats.order_by('threePPerc').values()
+            case 6:
+                stats = stats.order_by('freeThrowPerc').values()
+    elif sport == "soccer":
+        match sort_num:
+            case 1:
+                stats = stats.order_by('-athlete.firstName').values()
+            case 2:
+                stats = stats.order_by('goalsScored').values()
+            case 3:
+                stats = stats.order_by('shots').values()
+            case 4:
+                stats = stats.order_by('saves').values()
+            case 5:
+                stats = stats.order_by('fouls').values()
+            case 6:
+                stats = stats.order_by('minutesPlayed').values()
+    else:
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete.firstName').values()
+            case 2:
+                stats = stats.order_by('passingYards').values()
+            case 3:
+                stats = stats.order_by('rushingYards').values()
+            case 4:
+                stats = stats.order_by('tackles').values()
+            case 5:
+                stats = stats.order_by('sacks').values()
+            case 6:
+                stats = stats.order_by('interceptions').values()
+    return stats

@@ -12,9 +12,12 @@
     {% if are_stats %}
     <table>
         <tr>
-            {% for label in header %}
-                <th>{{ label }}</th>
-            {% endfor %}
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=1">{{ header.0 }}</a></th>
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=2">{{ header.1 }}</a></th>
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=3">{{ header.2 }}</a></th>
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=4">{{ header.3 }}</a></th>
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=5">{{ header.4 }}</a></th>
+            <th><a href="{% url 'sports_page' sport=sport %}?sort_num=6">{{ header.5 }}</a></th>
         </tr>
         {% for stat in stats %}
         <tr>
