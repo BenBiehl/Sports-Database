@@ -20,7 +20,7 @@ class ProfileForm(forms.Form):
 class AddAthleteForm(forms.ModelForm):
     class Meta:
         model = Athlete
-        fields = ['firstName', 'lastName', 'teamName']  # Use model field names
+        fields = ['firstName', 'lastName', 'teamName']
         widgets = {
             'firstName': forms.TextInput(attrs={'placeholder': 'First Name', 'style': 'width: 200px;'}),
             'lastName': forms.TextInput(attrs={'placeholder': 'Last Name', 'style': 'width: 200px;'}),
@@ -30,7 +30,7 @@ class AddAthleteForm(forms.ModelForm):
 class BaseballForm(forms.ModelForm):
     class Meta:
         model = BaseballStat
-        fields = ['battingAvg', 'homeRuns', 'era', 'rbi', 'stolenBases']  # Use model field names
+        fields = ['battingAvg', 'homeRuns', 'era', 'rbi', 'stolenBases']
         widgets = {
             'battingAvg': forms.TextInput(attrs={'placeholder': 'Batting Avg', 'style': 'width: 200px;'}),
             'homeRuns': forms.TextInput(attrs={'placeholder': 'Home Runs', 'style': 'width: 200px;'}),
@@ -42,7 +42,7 @@ class BaseballForm(forms.ModelForm):
 class BasketballForm(forms.ModelForm):
     class Meta:
         model = BasketballStat
-        fields = ['pointsPG', 'assistsPG', 'reboundsPG', 'threePPerc', 'freeThrowPerc']  # Use model field names
+        fields = ['pointsPG', 'assistsPG', 'reboundsPG', 'threePPerc', 'freeThrowPerc']
         widgets = {
             'pointsPG': forms.TextInput(attrs={'placeholder': 'Points PG', 'style': 'width: 200px;'}),
             'assistsPG': forms.TextInput(attrs={'placeholder': 'Assists PG', 'style': 'width: 200px;'}),
@@ -54,7 +54,7 @@ class BasketballForm(forms.ModelForm):
 class SoccerForm(forms.ModelForm):
     class Meta:
         model = SoccerStat
-        fields = ['goalsScored', 'shots', 'saves', 'fouls', 'minutesPlayed']  # Use model field names
+        fields = ['goalsScored', 'shots', 'saves', 'fouls', 'minutesPlayed']
         widgets = {
             'goalsScored': forms.TextInput(attrs={'placeholder': 'Goals Scored', 'style': 'width: 200px;'}),
             'shots': forms.TextInput(attrs={'placeholder': 'Shots', 'style': 'width: 200px;'}),
@@ -66,11 +66,29 @@ class SoccerForm(forms.ModelForm):
 class FootballForm(forms.ModelForm):
     class Meta:
         model = FootballStat
-        fields = ['passingYards', 'rushingYards', 'tackles', 'sacks', 'interceptions']  # Use model field names
+        fields = ['passingYards', 'rushingYards', 'tackles', 'sacks', 'interceptions']
         widgets = {
             'passingYards': forms.TextInput(attrs={'placeholder': 'Passing Yards', 'style': 'width: 200px;'}),
             'rushingYards': forms.TextInput(attrs={'placeholder': 'Rushing Yards', 'style': 'width: 200px;'}),
             'tackles': forms.TextInput(attrs={'placeholder': 'Tackles', 'style': 'width: 200px;'}),
             'sacks': forms.TextInput(attrs={'placeholder': 'Sacks', 'style': 'width: 200px;'}),
             'interceptions': forms.TextInput(attrs={'placeholder': 'Interceptions', 'style': 'width: 200px;'}),
+        }
+
+class EditAthleteForm(forms.ModelForm):
+    class Meta:
+        model = Athlete
+        fields = ['firstName', 'lastName', 'height', 'weight', 'age', 'wins', 'losses', 'joinYear', 'teamName', 'position', 'gamesPlayed']
+        widgets = {
+            'firstName': forms.TextInput(attrs={'placeholder': 'First Name', 'style': 'width: 200px;'}),
+            'lastName': forms.TextInput(attrs={'placeholder': 'Last Name', 'style': 'width: 200px;'}),
+            'teamName': forms.TextInput(attrs={'placeholder': 'Team Name', 'style': 'width: 200px;'}),
+            'position': forms.TextInput(attrs={'placeholder': 'Position', 'style': 'width: 200px;'}),
+            'height': forms.TextInput(attrs={'placeholder': 'Height', 'style': 'width: 200px;'}),
+            'weight': forms.TextInput(attrs={'placeholder': 'Weight', 'style': 'width: 200px;'}),
+            'age': forms.TextInput(attrs={'placeholder': 'Age', 'style': 'width: 200px;'}),
+            'wins': forms.NumberInput(attrs={'placeholder': 'Wins', 'style': 'width: 200px;'}),
+            'losses': forms.NumberInput(attrs={'placeholder': 'Losses', 'style': 'width: 200px;'}),
+            'joinYear': forms.NumberInput(attrs={'placeholder': 'Join Year', 'style': 'width: 200px;'}),
+            'gamesPlayed': forms.NumberInput(attrs={'placeholder': 'Games Played', 'style': 'width: 200px;'})
         }

@@ -11,10 +11,13 @@
     <h1>Edit Athlete for {{ sport|capfirst }}</h1>
     <form method="post" class="login-form">
         {% csrf_token %}
-        {{ athlete_form }}
-        {{ sport_form }}
+        <h3>General Information</h3>
+        {{ athlete_form.as_p }}
+        <h3>Sport-Specific Stats</h3>
+        {{ sport_form.as_p }}
         <input type="submit" value="Save Changes" class="btn-submit">
     </form>
+
     <form action="{% url 'sports_page' sport=sport %}" method="get" style="display:inline;">
         <button type="submit" class="btn-secondary">Go back</button>
     </form>

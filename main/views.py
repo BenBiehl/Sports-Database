@@ -4,7 +4,7 @@ from django.db.models import F
 from django.contrib import messages
 
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
-from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm, BasketballForm, SoccerForm, FootballForm
+from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm, BasketballForm, SoccerForm, FootballForm, EditAthleteForm
 
 # Page Request Functions
 def landing_page(request):
@@ -258,7 +258,7 @@ def athlete_page(request, sport, athlete_id):
 def edit_athlete(request, sport, athlete_id):
     athlete = get_object_or_404(Athlete, id=athlete_id)
     
-    athlete_form = AddAthleteForm(request.POST or None, instance=athlete)
+    athlete_form = EditAthleteForm(request.POST or None, instance=athlete)
     
     if sport == "baseball":
         sport_stat = get_object_or_404(BaseballStat, athlete=athlete)
@@ -273,15 +273,17 @@ def edit_athlete(request, sport, athlete_id):
         sport_stat = get_object_or_404(FootballStat, athlete=athlete)
         sport_form = FootballForm(request.POST or None, instance=sport_stat)
 
-    if request.method == "POST" and athlete_form.is_valid() and sport_form.is_valid():
-        athlete_form.save()
-        sport_form.save()
+    if request.method == "POST":
+        if athlete_form.is_valid() and sport_form.is_valid():
+            athlete_form.save()
+            sport_form.save()
 
     context = {
         "sport": sport,
         "athlete_form": athlete_form,
         "sport_form": sport_form,
     }
+
     return render(request, "main/edit_athlete.html", context)
 
 # Other Functions
