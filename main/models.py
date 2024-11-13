@@ -6,10 +6,10 @@ class GlobalStat(models.Model):
 
 class Athlete(models.Model):
     SPORT_CHOICES = [
-        ('Baseball', 'Baseball'),
-        ('Basketball', 'Basketball'),
-        ('Soccer', 'Soccer'),
-        ('Football', 'Football'),
+        ('baseball', 'baseball'),
+        ('basketball', 'basketball'),
+        ('soccer', 'soccer'),
+        ('football', 'football'),
     ]
 
     id = models.AutoField(primary_key=True)
@@ -26,6 +26,7 @@ class Athlete(models.Model):
     teamName = models.CharField(max_length=20, default='N/A')
     position = models.CharField(max_length=20, default='N/A', blank=True, null=True)
     gamesPlayed = models.IntegerField(default=0, blank=True, null=True)
+    numViews = models.IntegerField(default=0, blank=True, null=True)
     
     def winRate(self):
         if self.wins + self.losses == 0:

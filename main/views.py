@@ -11,9 +11,12 @@ def landing_page(request):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
 
+    viewed_athletes = Athlete.objects.order_by("-numViews")[:5]
+
     context = {
         "logged_in": logged_in,
-        "curr_user_name": curr_user_name
+        "curr_user_name": curr_user_name,
+        "viewed_athletes": viewed_athletes
     }
 
     return render(request, "main/landing_page.html", context)
@@ -234,6 +237,8 @@ def athlete_page(request, sport, athlete_id):
 
     athlete_id = int(athlete_id)
     athlete = Athlete.objects.filter(id=athlete_id).first()
+    athlete.numViews += 1
+    athlete.save(update_fields=['numViews'])
 
     athlete_stats = None
     if sport == 'baseball':

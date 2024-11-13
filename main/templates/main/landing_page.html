@@ -44,5 +44,11 @@
             <button type="submit" class="btn-secondary">Football</button>
         </form>
     </div>
+    <h2>Most Viewed Athletes</h2>
+    <ol>
+        {% for athlete in viewed_athletes %}
+            <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</li>
+        {% endfor %}
+    </ol>
 </body>
 </html>
