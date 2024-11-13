@@ -159,6 +159,7 @@ def sports_page(request, sport):
 
     context = {
         "logged_in": logged_in,
+        "curr_user_name": curr_user_name,
         "is_admin": is_admin,
         "are_stats": are_stats,
         "sport": sport,
@@ -170,6 +171,8 @@ def sports_page(request, sport):
 
 
 def add_athlete(request, sport):
+    logged_in = request.session.get('logged_in', False)
+    curr_user_name = request.session.get('curr_user_name', "")
     athlete_form = AddAthleteForm(request.POST or None)
     sport_form = None
 
@@ -231,6 +234,8 @@ def add_athlete(request, sport):
         return redirect('sports_page', sport)
 
     context = {
+        "logged_in": logged_in,
+        "curr_user_name": curr_user_name,
         "sport": sport,
         "athlete_form": athlete_form,
         "sport_form": sport_form,
@@ -271,11 +276,14 @@ def athlete_page(request, sport, athlete_id):
         "is_admin": is_admin,
         "sport": sport,
         "logged_in": logged_in,
+        "curr_user_name": curr_user_name
     }
 
     return render(request, "main/athlete_page.html", context)
 
 def edit_athlete(request, sport, athlete_id):
+    logged_in = request.session.get('logged_in', False)
+    curr_user_name = request.session.get('curr_user_name', "")
     athlete = get_object_or_404(Athlete, id=athlete_id)
     
     athlete_form = EditAthleteForm(request.POST or None, instance=athlete)
@@ -299,6 +307,8 @@ def edit_athlete(request, sport, athlete_id):
             sport_form.save()
 
     context = {
+        "logged_in": logged_in,
+        "curr_user_name": curr_user_name,
         "sport": sport,
         "athlete_form": athlete_form,
         "sport_form": sport_form,
