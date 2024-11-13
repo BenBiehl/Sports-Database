@@ -92,3 +92,6 @@ class EditAthleteForm(forms.ModelForm):
             'joinYear': forms.NumberInput(attrs={'placeholder': 'Join Year', 'style': 'width: 200px;'}),
             'gamesPlayed': forms.NumberInput(attrs={'placeholder': 'Games Played', 'style': 'width: 200px;'})
         }
+
+class AthleteSearchForm(forms.Form):
+    search_query = forms.CharField(label="Search Athletes", max_length=100, required=False)

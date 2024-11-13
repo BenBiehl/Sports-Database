@@ -4,19 +4,30 @@ from django.db.models import F
 from django.contrib import messages
 
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
-from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm, BasketballForm, SoccerForm, FootballForm, EditAthleteForm
+from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm, BasketballForm, SoccerForm, FootballForm, EditAthleteForm, AthleteSearchForm
 
 # Page Request Functions
 def landing_page(request):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
-
     viewed_athletes = Athlete.objects.order_by("-numViews")[:5]
 
+    search_form = AthleteSearchForm(request.GET or None)
+    
+    search_results = []
+    if search_form.is_valid():
+        query = search_form.cleaned_data.get('search_query')
+        if query:
+            search_results = Athlete.objects.filter(
+                firstName__icontains=query
+            )
+            
     context = {
         "logged_in": logged_in,
         "curr_user_name": curr_user_name,
-        "viewed_athletes": viewed_athletes
+        "viewed_athletes": viewed_athletes,
+        "search_form": search_form,
+        "search_results": search_results
     }
 
     return render(request, "main/landing_page.html", context)

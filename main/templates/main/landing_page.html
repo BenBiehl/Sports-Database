@@ -30,6 +30,23 @@
         </form>
         {% endif %}
     </div>
+
+   <!-- Search Bar -->
+   <form method="get" action="{% url 'landing_page' %}">
+    {% csrf_token %}
+    <input type="text" name="search_query" placeholder="Search Athletes" value="{{ search_form.search_query.value }}" />
+    <button type="submit">Search</button>
+</form>
+
+{% if search_results %}
+    <h3>Search Results:</h3>
+    <ul>
+        {% for athlete in search_results %}
+            <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</a></li>
+        {% endfor %}
+    </ul>
+{% endif %}
+
     <div class="additional-buttons">
         <form action="{% url 'sports_page' sport='baseball' %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Baseball</button>
@@ -52,3 +69,5 @@
     </ol>
 </body>
 </html>
+
+
