@@ -135,15 +135,9 @@ def sports_page(request, sport):
         except User.DoesNotExist:
             is_admin = False
 
-    stats = get_sports_stats(sport)
+    stats = get_sorted_sports_stats(sport, int(sort_num))
 
-    if stats:
-        are_stats = True
-    else:
-        are_stats = False
-
-    if sort_num != 0:
-        stats = sort_stats(stats, sport, sort_num)
+    are_stats = bool(stats)
 
     context = {
         "logged_in": logged_in,
@@ -155,6 +149,7 @@ def sports_page(request, sport):
     }
 
     return render(request, "main/sports_page.html", context)
+
 
 def add_athlete(request, sport):
     athlete_form = AddAthleteForm(request.POST or None)
@@ -265,18 +260,74 @@ def athlete_page(request, sport, athlete_id):
     return render(request, "main/athlete_page.html", context)
 
 # Other Functions
-def get_sports_stats(sport):
+def get_sorted_sports_stats(sport, sort_num=0):
+    stats = None
+    
     if sport == "baseball":
         stats = BaseballStat.objects.select_related('athlete').all()
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete__firstName')
+            case 2:
+                stats = stats.order_by('-battingAvg')
+            case 3:
+                stats = stats.order_by('-homeRuns')
+            case 4:
+                stats = stats.order_by('-era')
+            case 5:
+                stats = stats.order_by('-rbi')
+            case 6:
+                stats = stats.order_by('-stolenBases')
+                
     elif sport == "basketball":
         stats = BasketballStat.objects.select_related('athlete').all()
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete__firstName')
+            case 2:
+                stats = stats.order_by('-pointsPG')
+            case 3:
+                stats = stats.order_by('-assistsPG')
+            case 4:
+                stats = stats.order_by('-reboundsPG')
+            case 5:
+                stats = stats.order_by('-threePPerc')
+            case 6:
+                stats = stats.order_by('-freeThrowPerc')
+                
     elif sport == "soccer":
         stats = SoccerStat.objects.select_related('athlete').all()
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete__firstName')
+            case 2:
+                stats = stats.order_by('-goalsScored')
+            case 3:
+                stats = stats.order_by('-shots')
+            case 4:
+                stats = stats.order_by('-saves')
+            case 5:
+                stats = stats.order_by('-fouls')
+            case 6:
+                stats = stats.order_by('-minutesPlayed')
+                
     elif sport == "football":
         stats = FootballStat.objects.select_related('athlete').all()
-    else:
-        stats = None
+        match sort_num:
+            case 1:
+                stats = stats.order_by('athlete__firstName')
+            case 2:
+                stats = stats.order_by('-passingYards')
+            case 3:
+                stats = stats.order_by('-rushingYards')
+            case 4:
+                stats = stats.order_by('-tackles')
+            case 5:
+                stats = stats.order_by('-sacks')
+            case 6:
+                stats = stats.order_by('-interceptions')
     return stats
+
 
 def table_header(sport):
     if sport == "baseball":
@@ -288,62 +339,3 @@ def table_header(sport):
     else:
         header = ['Name', 'Passing Yards', 'Rushing Yards', 'Tackles', 'Sacks', 'Interceptions']
     return header
-
-def sort_stats(stats, sport, sort_num):
-    if sport == "baseball":
-        match sort_num:
-            case 1:
-                stats = stats.order_by('athlete.firstName').values()
-            case 2:
-                stats = stats.order_by('battingAvg').values()
-            case 3:
-                stats = stats.order_by('homeRuns').values()
-            case 4:
-                stats = stats.order_by('era').values()
-            case 5:
-                stats = stats.order_by('rbi').values()
-            case 6:
-                stats = stats.order_by('stolenBases').values()
-    elif sport == "basketball":
-        match sort_num:
-            case 1:
-                stats = stats.order_by('athlete.firstName').values()
-            case 2:
-                stats = stats.order_by('pointsPG').values()
-            case 3:
-                stats = stats.order_by('assistsPG').values()
-            case 4:
-                stats = stats.order_by('reboundsPG').values()
-            case 5:
-                stats = stats.order_by('threePPerc').values()
-            case 6:
-                stats = stats.order_by('freeThrowPerc').values()
-    elif sport == "soccer":
-        match sort_num:
-            case 1:
-                stats = stats.order_by('-athlete.firstName').values()
-            case 2:
-                stats = stats.order_by('goalsScored').values()
-            case 3:
-                stats = stats.order_by('shots').values()
-            case 4:
-                stats = stats.order_by('saves').values()
-            case 5:
-                stats = stats.order_by('fouls').values()
-            case 6:
-                stats = stats.order_by('minutesPlayed').values()
-    else:
-        match sort_num:
-            case 1:
-                stats = stats.order_by('athlete.firstName').values()
-            case 2:
-                stats = stats.order_by('passingYards').values()
-            case 3:
-                stats = stats.order_by('rushingYards').values()
-            case 4:
-                stats = stats.order_by('tackles').values()
-            case 5:
-                stats = stats.order_by('sacks').values()
-            case 6:
-                stats = stats.order_by('interceptions').values()
-    return stats
