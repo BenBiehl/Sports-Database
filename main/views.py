@@ -166,9 +166,9 @@ def add_athlete(request, sport):
 
     if request.method == "POST" and athlete_form.is_valid() and sport_form and sport_form.is_valid():
         athlete = Athlete(
-            firstName=athlete_form.cleaned_data['first_name'],
-            lastName=athlete_form.cleaned_data['last_name'],
-            teamName=athlete_form.cleaned_data['team_name'],
+            firstName=athlete_form.cleaned_data['firstName'],
+            lastName=athlete_form.cleaned_data['lastName'],
+            teamName=athlete_form.cleaned_data['teamName'],
             sport=sport.capitalize()
         )
         athlete.save()
@@ -176,35 +176,35 @@ def add_athlete(request, sport):
         if sport == "baseball":
             BaseballStat.objects.create(
                 athlete=athlete,
-                battingAvg=sport_form.cleaned_data['batting_avg'],
-                homeRuns=sport_form.cleaned_data['home_runs'],
+                battingAvg=sport_form.cleaned_data['battingAvg'],
+                homeRuns=sport_form.cleaned_data['homeRuns'],
                 era=sport_form.cleaned_data['era'],
                 rbi=sport_form.cleaned_data['rbi'],
-                stolenBases=sport_form.cleaned_data['stolen_bases']
+                stolenBases=sport_form.cleaned_data['stolenBases']
             )
         elif sport == "basketball":
             BasketballStat.objects.create(
                 athlete=athlete,
-                pointsPG=sport_form.cleaned_data['points_pg'],
-                assistsPG=sport_form.cleaned_data['assists_pg'],
-                reboundsPG=sport_form.cleaned_data['rebounds_pg'],
-                threePPerc=sport_form.cleaned_data['threepoint_perc'],
-                freeThrowPerc=sport_form.cleaned_data['freethrow_perc']
+                pointsPG=sport_form.cleaned_data['pointsPG'],
+                assistsPG=sport_form.cleaned_data['assistsPG'],
+                reboundsPG=sport_form.cleaned_data['reboundsPG'],
+                threePPerc=sport_form.cleaned_data['threePPerc'],
+                freeThrowPerc=sport_form.cleaned_data['freeThrowPerc']
             )
         elif sport == "soccer":
             SoccerStat.objects.create(
                 athlete=athlete,
-                goalsScored=sport_form.cleaned_data['goals_scored'],
+                goalsScored=sport_form.cleaned_data['goalsScored'],
                 shots=sport_form.cleaned_data['shots'],
                 saves=sport_form.cleaned_data['saves'],
                 fouls=sport_form.cleaned_data['fouls'],
-                minutesPlayed=sport_form.cleaned_data['minutes_played']
+                minutesPlayed=sport_form.cleaned_data['minutesPlayed']
             )
         else:
             FootballStat.objects.create(
                 athlete=athlete,
-                passingYards=sport_form.cleaned_data['passing_yards'],
-                rushingYards=sport_form.cleaned_data['rushing_yards'],
+                passingYards=sport_form.cleaned_data['passingYards'],
+                rushingYards=sport_form.cleaned_data['rushingYards'],
                 tackles=sport_form.cleaned_data['tackles'],
                 sacks=sport_form.cleaned_data['sacks'],
                 interceptions=sport_form.cleaned_data['interceptions']
@@ -212,7 +212,6 @@ def add_athlete(request, sport):
 
         return redirect('sports_page', sport)
 
-    # Context setup for GET request or form errors
     context = {
         "sport": sport,
         "athlete_form": athlete_form,
@@ -239,25 +238,51 @@ def athlete_page(request, sport, athlete_id):
     athlete_stats = None
     if sport == 'baseball':
         athlete_stats = get_object_or_404(BaseballStat, athlete=athlete)
-        sport_back = 'baseball'
     elif sport == 'basketball':
         athlete_stats = get_object_or_404(BasketballStat, athlete=athlete)
-        sport_back = 'basketball'
     elif sport == 'soccer':
         athlete_stats = get_object_or_404(SoccerStat, athlete=athlete)
-        sport_back = 'soccer'
     elif sport == 'football':
         athlete_stats = get_object_or_404(FootballStat, athlete=athlete)
-        sport_back = 'football'
 
     context = {
         "athlete": athlete,
         "athlete_stats": athlete_stats,
         "is_admin": is_admin,
-        "sport": sport
+        "sport": sport,
+        "logged_in": logged_in,
     }
 
     return render(request, "main/athlete_page.html", context)
+
+def edit_athlete(request, sport, athlete_id):
+    athlete = get_object_or_404(Athlete, id=athlete_id)
+    
+    athlete_form = AddAthleteForm(request.POST or None, instance=athlete)
+    
+    if sport == "baseball":
+        sport_stat = get_object_or_404(BaseballStat, athlete=athlete)
+        sport_form = BaseballForm(request.POST or None, instance=sport_stat)
+    elif sport == "basketball":
+        sport_stat = get_object_or_404(BasketballStat, athlete=athlete)
+        sport_form = BasketballForm(request.POST or None, instance=sport_stat)
+    elif sport == "soccer":
+        sport_stat = get_object_or_404(SoccerStat, athlete=athlete)
+        sport_form = SoccerForm(request.POST or None, instance=sport_stat)
+    else:
+        sport_stat = get_object_or_404(FootballStat, athlete=athlete)
+        sport_form = FootballForm(request.POST or None, instance=sport_stat)
+
+    if request.method == "POST" and athlete_form.is_valid() and sport_form.is_valid():
+        athlete_form.save()
+        sport_form.save()
+
+    context = {
+        "sport": sport,
+        "athlete_form": athlete_form,
+        "sport_form": sport_form,
+    }
+    return render(request, "main/edit_athlete.html", context)
 
 # Other Functions
 def get_sorted_sports_stats(sport, sort_num=0):

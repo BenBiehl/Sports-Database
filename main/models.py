@@ -48,8 +48,8 @@ class User(models.Model):
     
 class BaseballStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    battingAvg = models.IntegerField(blank=True)
-    homeRuns = models.IntegerField(blank=True)
+    battingAvg = models.FloatField(blank=True)
+    homeRuns = models.FloatField(blank=True)
     era = models.FloatField(blank=True)
     rbi = models.FloatField(blank=True)
     stolenBases = models.IntegerField(blank=True)

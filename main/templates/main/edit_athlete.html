@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Athlete</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <h1>Edit Athlete for {{ sport|capfirst }}</h1>
+    <form method="post" class="login-form">
+        {% csrf_token %}
+        {{ athlete_form }}
+        {{ sport_form }}
+        <input type="submit" value="Save Changes" class="btn-submit">
+    </form>
+    <form action="{% url 'sports_page' sport=sport %}" method="get" style="display:inline;">
+        <button type="submit" class="btn-secondary">Go back</button>
+    </form>
+</body>
+</html>

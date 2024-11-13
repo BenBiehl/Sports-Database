@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import TextInput
+from .models import Athlete, BaseballStat, BasketballStat, SoccerStat, FootballStat
 
 class LogSignForm(forms.Form):
     user_name = forms.CharField(
@@ -17,84 +17,60 @@ class ProfileForm(forms.Form):
         max_length=20
     )
 
-class AddAthleteForm(forms.Form):
-    first_name = forms.CharField(
-        max_length=20,
-        widget=forms.TextInput(attrs={'placeholder': 'First Name', 'style': 'width: 200px;'})
-    )
-    last_name = forms.CharField(
-        max_length=20,
-        widget=forms.TextInput(attrs={'placeholder': 'Last Name', 'style': 'width: 200px;'})
-    )
-    team_name = first_name = forms.CharField(
-        max_length=20,
-        widget=forms.TextInput(attrs={'placeholder': 'Team Name', 'style': 'width: 200px;'})
-    )
+class AddAthleteForm(forms.ModelForm):
+    class Meta:
+        model = Athlete
+        fields = ['firstName', 'lastName', 'teamName']  # Use model field names
+        widgets = {
+            'firstName': forms.TextInput(attrs={'placeholder': 'First Name', 'style': 'width: 200px;'}),
+            'lastName': forms.TextInput(attrs={'placeholder': 'Last Name', 'style': 'width: 200px;'}),
+            'teamName': forms.TextInput(attrs={'placeholder': 'Team Name', 'style': 'width: 200px;'}),
+        }
 
-class BaseballForm(forms.Form):
-    batting_avg = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Batting Avg', 'style': 'width: 200px;'})
-    )
-    home_runs = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Home Runs', 'style': 'width: 200px;'})
-    )
-    era = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'ERA', 'style': 'width: 200px;'})
-    )
-    rbi = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'RBI', 'style': 'width: 200px;'})
-    )
-    stolen_bases = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Stolen Bases', 'style': 'width: 200px;'})
-    )
+class BaseballForm(forms.ModelForm):
+    class Meta:
+        model = BaseballStat
+        fields = ['battingAvg', 'homeRuns', 'era', 'rbi', 'stolenBases']  # Use model field names
+        widgets = {
+            'battingAvg': forms.TextInput(attrs={'placeholder': 'Batting Avg', 'style': 'width: 200px;'}),
+            'homeRuns': forms.TextInput(attrs={'placeholder': 'Home Runs', 'style': 'width: 200px;'}),
+            'era': forms.TextInput(attrs={'placeholder': 'ERA', 'style': 'width: 200px;'}),
+            'rbi': forms.TextInput(attrs={'placeholder': 'RBI', 'style': 'width: 200px;'}),
+            'stolenBases': forms.TextInput(attrs={'placeholder': 'Stolen Bases', 'style': 'width: 200px;'}),
+        }
 
-class BasketballForm(forms.Form):
-    points_pg = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'Points PG', 'style': 'width: 200px;'})
-    )
-    assists_pg = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'Assists PG', 'style': 'width: 200px;'})
-    )
-    rebounds_pg = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'Rebounds PG', 'style': 'width: 200px;'})
-    )
-    threepoint_perc = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'Three Point %', 'style': 'width: 200px;'})
-    )
-    freethrow_perc = forms.FloatField(
-        widget=forms.TextInput(attrs={'placeholder': 'Free Throw %', 'style': 'width: 200px;'})
-    )
+class BasketballForm(forms.ModelForm):
+    class Meta:
+        model = BasketballStat
+        fields = ['pointsPG', 'assistsPG', 'reboundsPG', 'threePPerc', 'freeThrowPerc']  # Use model field names
+        widgets = {
+            'pointsPG': forms.TextInput(attrs={'placeholder': 'Points PG', 'style': 'width: 200px;'}),
+            'assistsPG': forms.TextInput(attrs={'placeholder': 'Assists PG', 'style': 'width: 200px;'}),
+            'reboundsPG': forms.TextInput(attrs={'placeholder': 'Rebounds PG', 'style': 'width: 200px;'}),
+            'threePPerc': forms.TextInput(attrs={'placeholder': 'Three Point %', 'style': 'width: 200px;'}),
+            'freeThrowPerc': forms.TextInput(attrs={'placeholder': 'Free Throw %', 'style': 'width: 200px;'}),
+        }
 
-class SoccerForm(forms.Form):
-    goals_scored = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Goals Scored', 'style': 'width: 200px;'})
-    )
-    shots = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Shots', 'style': 'width: 200px;'})
-    )
-    saves = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Saves', 'style': 'width: 200px;'})
-    )
-    fouls = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Fouls', 'style': 'width: 200px;'})
-    )
-    minutes_played = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Minutes Played', 'style': 'width: 200px;'})
-    )
+class SoccerForm(forms.ModelForm):
+    class Meta:
+        model = SoccerStat
+        fields = ['goalsScored', 'shots', 'saves', 'fouls', 'minutesPlayed']  # Use model field names
+        widgets = {
+            'goalsScored': forms.TextInput(attrs={'placeholder': 'Goals Scored', 'style': 'width: 200px;'}),
+            'shots': forms.TextInput(attrs={'placeholder': 'Shots', 'style': 'width: 200px;'}),
+            'saves': forms.TextInput(attrs={'placeholder': 'Saves', 'style': 'width: 200px;'}),
+            'fouls': forms.TextInput(attrs={'placeholder': 'Fouls', 'style': 'width: 200px;'}),
+            'minutesPlayed': forms.TextInput(attrs={'placeholder': 'Minutes Played', 'style': 'width: 200px;'}),
+        }
 
-class FootballForm(forms.Form):
-    passing_yards = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Passing Yards', 'style': 'width: 200px;'})
-    )
-    rushing_yards = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Rushing Yards', 'style': 'width: 200px;'})
-    )
-    tackles = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Tackles', 'style': 'width: 200px;'})
-    )
-    sacks = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Sacks', 'style': 'width: 200px;'})
-    )
-    interceptions = forms.IntegerField(
-        widget=forms.TextInput(attrs={'placeholder': 'Interceptions', 'style': 'width: 200px;'})
-    )
+class FootballForm(forms.ModelForm):
+    class Meta:
+        model = FootballStat
+        fields = ['passingYards', 'rushingYards', 'tackles', 'sacks', 'interceptions']  # Use model field names
+        widgets = {
+            'passingYards': forms.TextInput(attrs={'placeholder': 'Passing Yards', 'style': 'width: 200px;'}),
+            'rushingYards': forms.TextInput(attrs={'placeholder': 'Rushing Yards', 'style': 'width: 200px;'}),
+            'tackles': forms.TextInput(attrs={'placeholder': 'Tackles', 'style': 'width: 200px;'}),
+            'sacks': forms.TextInput(attrs={'placeholder': 'Sacks', 'style': 'width: 200px;'}),
+            'interceptions': forms.TextInput(attrs={'placeholder': 'Interceptions', 'style': 'width: 200px;'}),
+        }
