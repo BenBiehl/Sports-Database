@@ -41,19 +41,11 @@
     </div>
 
     <div class="search-container">
-        <form method="get" action="{% url 'landing_page' %}" class="search-form">
+        <form method="get" action="{% url 'search_page' %}" class="search-form">
             {% csrf_token %}
-        <input type="text" name="search_query" placeholder="Search Athletes" value="{{ search_form.search_query.value|default:'' }}" />
-        <button type="submit">Search</button>
+            <input type="text" name="search_query" placeholder="Search Athletes" value="{{ search_form.search_query.value|default:'' }}" />
+            <button type="submit">Search</button>
         </form>
-        {% if search_results %}
-        <h3>Search Results:</h3>
-        <ul>
-            {% for athlete in search_results %}
-                <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</a></li>
-            {% endfor %}
-        </ul>
-            {% endif %}
     </div>
 
     <h2>Most Viewed Athletes</h2>

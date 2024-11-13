@@ -36,6 +36,32 @@ def landing_page(request):
 
     return render(request, "main/landing_page.html", context)
 
+def search_page(request):
+    logged_in = request.session.get('logged_in', False)
+    curr_user_name = request.session.get('curr_user_name', "")
+    search_query = request.GET.get('search_query', '')
+    
+    search_form = AthleteSearchForm(request.GET or None)
+    
+    search_results = []
+    if search_form.is_valid():
+        query = search_form.cleaned_data.get('search_query')
+        if query:
+            # Search by first name or last name, case insensitive
+            search_results = Athlete.objects.filter(
+                firstName__icontains=query
+            ) | Athlete.objects.filter(
+                lastName__icontains=query
+            )
+
+    context = {
+        "logged_in": logged_in,
+        "curr_user_name": curr_user_name,
+        "search_form": search_form,
+        "search_results": search_results
+    }
+    return render(request, 'main/search_page.html', context)
+
 def login_page(request):
     invalid_user = False
     invalid_password = False

@@ -13,5 +13,6 @@ urlpatterns = [
     path("<str:sport>/", views.sports_page, name ="sports_page"),
     path("<str:sport>/add_athlete/", views.add_athlete, name="add_athlete"),
     path("<str:sport>/athlete/<str:athlete_id>", views.athlete_page, name="athlete_page"),
-    path("<str:sport>/athlete/<str:athlete_id>/edit", views.edit_athlete, name="edit_athlete")
+    path("<str:sport>/athlete/<str:athlete_id>/edit", views.edit_athlete, name="edit_athlete"),
+    path("athlete/search/", views.search_page, name="search_page")
 ]
