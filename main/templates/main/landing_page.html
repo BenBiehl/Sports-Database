@@ -20,25 +20,10 @@
             {% endif %}
         </div>
     </div>
+
     <div class="container">
         <h1>Welcome to the Sports Management Dashboard</h1>
     </div>
-
-    <!-- Search Bar -->
-    <form method="get" action="{% url 'landing_page' %}">
-        {% csrf_token %}
-    <input type="text" name="search_query" placeholder="Search Athletes" value="{{ search_form.search_query.value|default:'' }}" />
-    <button type="submit">Search</button>
-    </form>
-
-        {% if search_results %}
-    <h3>Search Results:</h3>
-    <ul>
-        {% for athlete in search_results %}
-            <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</a></li>
-        {% endfor %}
-    </ul>
-        {% endif %}
 
     <div class="additional-buttons">
         <form action="{% url 'sports_page' sport='baseball' %}" method="get" style="display:inline;">
@@ -54,6 +39,23 @@
             <button type="submit" class="btn-secondary">Football</button>
         </form>
     </div>
+
+    <div class="search-container">
+        <form method="get" action="{% url 'landing_page' %}" class="search-form">
+            {% csrf_token %}
+        <input type="text" name="search_query" placeholder="Search Athletes" value="{{ search_form.search_query.value|default:'' }}" />
+        <button type="submit">Search</button>
+        </form>
+        {% if search_results %}
+        <h3>Search Results:</h3>
+        <ul>
+            {% for athlete in search_results %}
+                <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</a></li>
+            {% endfor %}
+        </ul>
+            {% endif %}
+    </div>
+
     <h2>Most Viewed Athletes</h2>
     <ol>
         {% for athlete in viewed_athletes %}

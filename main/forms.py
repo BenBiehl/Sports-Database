@@ -94,4 +94,9 @@ class EditAthleteForm(forms.ModelForm):
         }
 
 class AthleteSearchForm(forms.Form):
-    search_query = forms.CharField(label="Search Athletes", max_length=100, required=False)
+    search_query = forms.CharField(
+        label="Search Athletes",
+        max_length=100,
+        required=False,
+        widget=forms.TextInput(attrs={'style': 'width: 200px;'})
+    )
