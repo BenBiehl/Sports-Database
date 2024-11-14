@@ -50,8 +50,8 @@ To add a new url, naviage to *main/urls.py*, and update the url path there.
 - [x] Initialize Database
 - [x] Setup Login
 - [x] Add all necessary classes
-- [ ] Main page (mostly done, maybe add top 5 visited athletes?)
-- [ ] User page (skelton done)
-- [ ] Sports page (skeleton done)
-- [ ] Functions (once athlete tables are finished, add various sorting functions)
-- [ ] UI (getting there)
+- [x] Main page
+- [x] User page (just needs ui styling)
+- [x] Sports page
+- [x] Functions
+- [ ] UI (almost done)
