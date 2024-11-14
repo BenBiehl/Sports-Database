@@ -69,6 +69,15 @@
                     <button type="submit">Edit Athlete</button>
                 </form>
             {% endif %}
+            <form action="{% url 'favorite_athlete' sport=sport athlete_id=athlete.id user_name=curr_user_name %}" method="get" style="display:inline;">
+                <button type="submit">
+                    {% if is_favorited %}
+                        Unfavorite Athlete
+                    {% else %}
+                        Favorite Athlete
+                    {% endif %}
+                </button>
+            </form>
         {% endif %}
     </div>
 </body>

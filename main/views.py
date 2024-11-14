@@ -273,11 +273,15 @@ def athlete_page(request, sport, athlete_id):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
     is_admin = False
+    is_favorited = False
+    athlete = get_object_or_404(Athlete, id=athlete_id)
 
     if logged_in and curr_user_name:
         try:
             user = User.objects.get(userName=curr_user_name)
             is_admin = user.isAdmin
+            if user.favAthlete != None:
+                is_favorited = user.favAthlete.id == athlete.id
         except User.DoesNotExist:
             is_admin = False
 
@@ -302,7 +306,8 @@ def athlete_page(request, sport, athlete_id):
         "is_admin": is_admin,
         "sport": sport,
         "logged_in": logged_in,
-        "curr_user_name": curr_user_name
+        "curr_user_name": curr_user_name,
+        "is_favorited": is_favorited
     }
 
     return render(request, "main/athlete_page.html", context)
@@ -341,6 +346,21 @@ def edit_athlete(request, sport, athlete_id):
     }
 
     return render(request, "main/edit_athlete.html", context)
+
+def favorite_athlete(request, sport, athlete_id, user_name):
+    user = User.objects.get(userName=user_name)
+    athlete = Athlete.objects.get(id=athlete_id)
+
+    if user.favAthlete != None:
+        if user.favAthlete.id == athlete.id:
+            user.favAthlete = None
+        else:
+            user.favAthlete = athlete
+    else:
+        user.favAthlete = athlete
+    user.save()
+    
+    return redirect('athlete_page', sport=sport, athlete_id=athlete_id)
 
 # Other Functions
 def get_sorted_sports_stats(sport, sort_num=0):

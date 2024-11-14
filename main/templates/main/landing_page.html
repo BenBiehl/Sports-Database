@@ -51,7 +51,7 @@
     <h2>Most Viewed Athletes</h2>
     <ol>
         {% for athlete in viewed_athletes %}
-            <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }}</li>
+            <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }} ({{ athlete.numViews }} views)</li>
         {% endfor %}
     </ol>
 </body>
