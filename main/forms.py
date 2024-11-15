@@ -14,7 +14,8 @@ class LogSignForm(forms.Form):
 class ProfileForm(forms.Form):
     fav_team = forms.CharField(
         label="Add/Change Team",
-        max_length=20
+        max_length=20,
+        widget=forms.TextInput(attrs={'placeholder': 'Fav Team', 'style': 'width: 100px;'})
     )
 
 class AddAthleteForm(forms.ModelForm):

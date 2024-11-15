@@ -140,6 +140,8 @@ def signup_page(request):
     return render(request, "main/signup_page.html", context)
 
 def user_page(request, user_name):
+    logged_in = request.session.get('logged_in', False)
+    curr_user_name = request.session.get('curr_user_name', "")
     user = get_object_or_404(User, pk=user_name)
     invalid_info = False
     form = ProfileForm()
@@ -160,7 +162,9 @@ def user_page(request, user_name):
     context = {
         "user": user,
         "form": form,
-        "invalid_info": invalid_info
+        "invalid_info": invalid_info,
+        "logged_in": logged_in,
+        "curr_user_name": curr_user_name
     }
 
     return render(request, "main/user_page.html", context)

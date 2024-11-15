@@ -1,38 +1,57 @@
 {% load static %}
-
-<h1>{{ user.userName }}'s Profile</h1>
-<div class="profile-container">
-    {% if user.isAdmin %}
-    <p>User is an admin</p>
-    {% else %}
-    <p>User is not an admin</p>
-    {% endif %}
-    <p>Favorite Team: {{ user.teamName }}</p>
-
-    <section class="favorite-athlete-section">
-        <h3>Manage Favorite Athlete</h3>
-        <form method="post" class="favorite-athlete-form">
-            {% csrf_token %}
-            {{ form }}
-            <input type="submit" value="Submit" class="btn-submit">
-        </form>
-
-        {% if user.favAthlete %}
-        <div class="favorite-athlete-info">
-            <p><strong>Favorite Athlete:</strong> {{ user.favAthlete.firstName }} {{ user.favAthlete.lastName }}</p>
-            <p><em>{{ user.favAthlete.sport }}</em> | <em>{{ user.favAthlete.teamName }}</em></p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Page</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+    <div class="header">
+        <p><a href="{% url 'landing_page' %}">Home</a></p>
+        <div class="header-container">
+            {% if not logged_in %}
+            <p><a href="{% url 'login_page' %}">Login</a></p>
+            <p><a href="{% url 'signup_page' %}">Signup</a></p>
+            {% else %}
+            <p><a href="{% url 'logout' %}">Logout</a></p>
+            <p><a href="{% url 'user_page' curr_user_name %}">Profile</a></p>
+            {% endif %}
         </div>
-        {% else %}
-        <p>No favorite athlete selected.</p>
-        {% endif %}
-    </section>
-    
-    <div class="additional-buttons">
-        <form action="{% url 'landing_page' %}" method="get">
-            <button type="submit" class="btn-secondary">Go back</button>
-        </form>
     </div>
-</div>
 
-<!-- Link to the styles.css -->
-<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+    <h1>{{ user.userName }}'s Profile</h1>
+    <div class="profile-container">
+        <img src="{% static "images/default_picture.jpg" %}" style="width: 200px; height: auto;">
+        {% if user.isAdmin %}
+        <p>User is an admin</p>
+        {% else %}
+        <p>User is not an admin</p>
+        {% endif %}
+        <p>Favorite Team: {{ user.teamName }}</p>
+
+        <section class="favorite-athlete-section">
+            <form method="post" class="favorite-athlete-form">
+                {% csrf_token %}
+                {{ form }}
+                <button type="submit" class="btn-secondary">Save</button>
+            </form>
+
+            {% if user.favAthlete %}
+            <div class="favorite-athlete-info">
+                <p><strong>Favorite Athlete:</strong> {{ user.favAthlete.firstName }} {{ user.favAthlete.lastName }}</p>
+                <p><em>{{ user.favAthlete.sport|capfirst }}</em> | <em>{{ user.favAthlete.teamName }}</em></p>
+            </div>
+            {% else %}
+            <p>No favorite athlete selected.</p>
+            {% endif %}
+        </section>
+        
+        <div class="additional-buttons">
+            <form action="{% url 'landing_page' %}" method="get">
+                <button type="submit" class="btn-secondary">Go back</button>
+            </form>
+        </div>
+    </div>
+</body>
