@@ -52,6 +52,6 @@ To add a new url, naviage to *main/urls.py*, and update the url path there.
 - [x] Add all necessary classes
 - [x] Main page
 - [x] User page (just needs ui styling)
-- [ ] Sports page (need to add removing athlete)
+- [x] Sports page (maybe more styling if we have time)
 - [x] Functions
-- [ ] UI (almost done)
+- [x] UI (maybe more if we have time)
