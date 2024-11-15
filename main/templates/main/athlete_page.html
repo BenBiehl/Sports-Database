@@ -47,6 +47,9 @@
                     <form action="{% url 'edit_athlete' sport=sport athlete_id=athlete.id %}" method="get" style="display:inline;">
                         <button type="submit" class="btn-secondary">Edit Athlete</button>
                     </form>
+                    <form action="{% url 'delete_athlete' sport=sport athlete_id=athlete.id %}" method="get" style="display:inline;">
+                        <button type="submit" class="btn-delete">Delete Athlete</button>
+                    </form>
                 {% endif %}
                 <form action="{% url 'favorite_athlete' sport=sport athlete_id=athlete.id user_name=curr_user_name %}" method="get" style="display:inline;">
                     <button type="submit">

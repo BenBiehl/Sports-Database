@@ -368,6 +368,22 @@ def favorite_athlete(request, sport, athlete_id, user_name):
     
     return redirect('athlete_page', sport=sport, athlete_id=athlete_id)
 
+def delete_athlete(request, sport, athlete_id):
+    athlete = Athlete.objects.get(id=athlete_id)
+
+    if sport == "baseball":
+        BaseballStat.objects.filter(athlete=athlete).delete()
+    elif sport == "basketball":
+        BasketballStat.objects.filter(athlete=athlete).delete()
+    elif sport == "soccer":
+        SoccerStat.objects.filter(athlete=athlete).delete()
+    else:
+        FootballStat.objects.filter(athlete=athlete).delete()
+    
+    Athlete.objects.filter(id=athlete_id).delete()
+
+    return redirect('sports_page', sport=sport)
+
 # Other Functions
 def get_sorted_sports_stats(sport, sort_num=0):
     stats = None
