@@ -25,7 +25,7 @@
         <h1>Welcome to the Sports Management Dashboard</h1>
     </div>
 
-    <div class="additional-buttons">
+    <div class="sports-buttons">
         <form action="{% url 'sports_page' sport='baseball' %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Baseball</button>
         </form>
@@ -48,7 +48,7 @@
         </form>
     </div>
 
-    <h2>Most Viewed Athletes</h2>
+    <h2 class="viewed-athletes-title">Most Viewed Athletes</h2>
     <ol>
         {% for athlete in viewed_athletes %}
             <li><a href="{% url 'athlete_page' sport=athlete.sport athlete_id=athlete.id%}">{{ athlete.firstName }} {{ athlete.lastName }} ({{ athlete.numViews }} views)</li>

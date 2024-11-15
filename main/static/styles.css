@@ -35,8 +35,8 @@ body {
     border: 1px solid #333;
     border-radius: 10px;
     background-color: #2c2c2c;
-    max-width: 400px;
     margin-top: 30px;
+    width: 30%;
 }
 
 .sports-container {
@@ -50,7 +50,7 @@ body {
 }
 
 h1 {
-    font-size: 2em;
+    font-size: 3em;
     margin-bottom: 15px;
 }
 
@@ -151,7 +151,7 @@ h3 {
     align-items: center;
     min-width: 50%;
     padding: 10px;
-    margin-top: 5px;
+    margin-bottom: 2rem;
 }
 
 .search-page-container {
@@ -173,6 +173,20 @@ h3 {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+.search-results h1 {
+    font-size: 36px;
+}
+
+.viewed-athletes-title {
+    font-size: 36px;
+    margin-bottom: 0;
+}
+
+.viewed-athletes-title+ol li {
+    font-size: 1.2em;
+    margin-bottom: 5px;
 }
 
 ul {
@@ -219,6 +233,13 @@ ol {
     margin-top: 1.5rem;
 }
 
+.sports-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 5rem;
+}
+
 .btn-secondary {
     padding: 10px 20px;
     background-color: #555;
@@ -245,4 +266,39 @@ th,
 td {
     border: 3px solid;
     padding: 10px;
+}
+
+.general-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sport-stats {
+    text-align: center;
+}
+
+.stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+    gap: 10%;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 2rem;
+}
+
+.info-items {
+    text-align: center;
+}
+
+.sport-stats p {
+    font-size: 24px;
 }

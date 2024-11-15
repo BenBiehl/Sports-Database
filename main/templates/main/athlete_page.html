@@ -21,64 +21,80 @@
         </div>
     </div>
     
-    <h1>{{ athlete.firstName }} {{ athlete.lastName }}</h1>
-    <p>Sport: {{ athlete.sport }}</p>
-    <p>Height: {{ athlete.height }}</p>
-    <p>Weight: {{ athlete.weight }}</p>
-    <p>Age: {{ athlete.age }}</p>
-    <p>Wins: {{ athlete.wins }}</p>
-    <p>Losses: {{ athlete.losses }}</p>
-    <p>Join Year: {{ athlete.joinYear }}</p>
-    <p>Team: {{ athlete.teamName }}</p>
-    <p>Position: {{ athlete.position }}</p>
-    <p>Total Page Views: {{ athlete.numViews }}</p>
+    <div class="stats">
+        <div class="general-stats">
+            <h1>{{ athlete.firstName }} {{ athlete.lastName }}</h1>
+            <img src="{% static "images/default_picture.jpg" %}" style="width: 300px; height: auto;">
+            <div class="info">
+                <div class="info-items">
+                    <p>Sport: {{ athlete.sport|capfirst }}</p>
+                    <p>Height: {{ athlete.height }}</p>
+                    <p>Weight: {{ athlete.weight }}</p>
+                    <p>Age: {{ athlete.age }}</p>
+                    <p>Total Page Views: {{ athlete.numViews }}</p>
+                </div>
+                <div class="info-items">
+                    <p>Wins: {{ athlete.wins }}</p>
+                    <p>Losses: {{ athlete.losses }}</p>
+                    <p>Join Year: {{ athlete.joinYear }}</p>
+                    <p>Team: {{ athlete.teamName }}</p>
+                    <p>Position: {{ athlete.position }}</p>
+                </div>
+            </div>
+            <div>
+            {% if logged_in %}
+                {% if is_admin %}
+                    <form action="{% url 'edit_athlete' sport=sport athlete_id=athlete.id %}" method="get" style="display:inline;">
+                        <button type="submit" class="btn-secondary">Edit Athlete</button>
+                    </form>
+                {% endif %}
+                <form action="{% url 'favorite_athlete' sport=sport athlete_id=athlete.id user_name=curr_user_name %}" method="get" style="display:inline;">
+                    <button type="submit">
+                        {% if is_favorited %}
+                            Unfavorite Athlete
+                        {% else %}
+                            Favorite Athlete
+                        {% endif %}
+                    </button>
+                </form>
+            {% endif %}
+            </div>
+        </div>
 
-    <h2>Statistics:</h2>
-    {% if athlete.sport == 'baseball' %}
-        <p>Batting Average: {{ athlete_stats.battingAvg }}</p>
-        <p>Home Runs: {{ athlete_stats.homeRuns }}</p>
-        <p>ERA: {{ athlete_stats.era }}</p>
-        <p>RBI: {{ athlete_stats.rbi }}</p>
-        <p>Stolen Bases: {{ athlete_stats.stolenBases }}</p>
-    {% elif athlete.sport == 'basketball' %}
-        <p>Points per Game: {{ athlete_stats.pointsPG }}</p>
-        <p>Assists per Game: {{ athlete_stats.assistsPG }}</p>
-        <p>Rebounds per Game: {{ athlete_stats.reboundsPG }}</p>
-        <p>3-Point Percentage: {{ athlete_stats.threePPerc }}</p>
-        <p>Free Throw Percentage: {{ athlete_stats.freeThrowPerc }}</p>
-    {% elif athlete.sport == 'soccer' %}
-        <p>Goals Scored: {{ athlete_stats.goalsScored }}</p>
-        <p>Shots: {{ athlete_stats.shots }}</p>
-        <p>Saves: {{ athlete_stats.saves }}</p>
-        <p>Fouls: {{ athlete_stats.fouls }}</p>
-        <p>Minutes Played: {{ athlete_stats.minutesPlayed }}</p>
-    {% elif athlete.sport == 'football' %}
-        <p>Passing Yards: {{ athlete_stats.passingYards }}</p>
-        <p>Rushing Yards: {{ athlete_stats.rushingYards }}</p>
-        <p>Tackles: {{ athlete_stats.tackles }}</p>
-        <p>Sacks: {{ athlete_stats.sacks }}</p>
-        <p>Interceptions: {{ athlete_stats.interceptions }}</p>
-    {% endif %}
+        <div class="sport-stats">
+            <h1>{{ athlete.sport|capfirst }} Statistics:</h1>
+            {% if athlete.sport == 'baseball' %}
+                <p>Batting Average: {{ athlete_stats.battingAvg }}</p>
+                <p>Home Runs: {{ athlete_stats.homeRuns }}</p>
+                <p>ERA: {{ athlete_stats.era }}</p>
+                <p>RBI: {{ athlete_stats.rbi }}</p>
+                <p>Stolen Bases: {{ athlete_stats.stolenBases }}</p>
+            {% elif athlete.sport == 'basketball' %}
+                <p>Points per Game: {{ athlete_stats.pointsPG }}</p>
+                <p>Assists per Game: {{ athlete_stats.assistsPG }}</p>
+                <p>Rebounds per Game: {{ athlete_stats.reboundsPG }}</p>
+                <p>3-Point Percentage: {{ athlete_stats.threePPerc }}</p>
+                <p>Free Throw Percentage: {{ athlete_stats.freeThrowPerc }}</p>
+            {% elif athlete.sport == 'soccer' %}
+                <p>Goals Scored: {{ athlete_stats.goalsScored }}</p>
+                <p>Shots: {{ athlete_stats.shots }}</p>
+                <p>Saves: {{ athlete_stats.saves }}</p>
+                <p>Fouls: {{ athlete_stats.fouls }}</p>
+                <p>Minutes Played: {{ athlete_stats.minutesPlayed }}</p>
+            {% elif athlete.sport == 'football' %}
+                <p>Passing Yards: {{ athlete_stats.passingYards }}</p>
+                <p>Rushing Yards: {{ athlete_stats.rushingYards }}</p>
+                <p>Tackles: {{ athlete_stats.tackles }}</p>
+                <p>Sacks: {{ athlete_stats.sacks }}</p>
+                <p>Interceptions: {{ athlete_stats.interceptions }}</p>
+            {% endif %}
+        </div>
+    </div>
+
     <div class="additional-buttons">
         <form action="{% url 'sports_page' sport=sport %}" method="get" style="display:inline;">
             <button type="submit" class="btn-secondary">Go back</button>
         </form>
-        {% if logged_in %}
-            {% if is_admin %}
-                <form action="{% url 'edit_athlete' sport=sport athlete_id=athlete.id %}" method="get" style="display:inline;">
-                    <button type="submit">Edit Athlete</button>
-                </form>
-            {% endif %}
-            <form action="{% url 'favorite_athlete' sport=sport athlete_id=athlete.id user_name=curr_user_name %}" method="get" style="display:inline;">
-                <button type="submit">
-                    {% if is_favorited %}
-                        Unfavorite Athlete
-                    {% else %}
-                        Favorite Athlete
-                    {% endif %}
-                </button>
-            </form>
-        {% endif %}
     </div>
 </body>
 </html>
