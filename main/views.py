@@ -1,6 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
-from django.db.models import F
+from django.db.models import F, Avg
 from django.contrib import messages
 
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
@@ -184,6 +184,7 @@ def sports_page(request, sport):
             is_admin = False
 
     stats = get_sorted_sports_stats(sport, int(sort_num))
+    avg_stats_footer = get_avg(stats, sport)
 
     are_stats = bool(stats)
 
@@ -194,7 +195,8 @@ def sports_page(request, sport):
         "are_stats": are_stats,
         "sport": sport,
         "stats": stats,
-        "header": header
+        "header": header,
+        "avg_stats_footer": avg_stats_footer
     }
 
     return render(request, "main/sports_page.html", context)
@@ -435,6 +437,37 @@ def get_sorted_sports_stats(sport, sort_num=0):
                 stats = stats.order_by('-interceptions')
     return stats
 
+def get_avg(stats, sport):
+    footer = []
+    if sport == "baseball":
+        batting_avg = stats.aggregate(Avg('battingAvg'))['battingAvg__avg']
+        home_runs = stats.aggregate(Avg('homeRuns'))['homeRuns__avg']
+        era = stats.aggregate(Avg('era'))['era__avg']
+        rbi = stats.aggregate(Avg('rbi'))['rbi__avg']
+        stolen_bases = stats.aggregate(Avg('stolenBases'))['stolenBases__avg']
+        footer = ['Avg', batting_avg, home_runs, era, rbi, stolen_bases]
+    elif sport == "basketball":
+        points_pg = stats.aggregate(Avg('pointsPG'))['pointsPG__avg']
+        assists_pg = stats.aggregate(Avg('assistsPG'))['assistsPG__avg']
+        rebounds_pg = stats.aggregate(Avg('reboundsPG'))['reboundsPG__avg']
+        three_pp = stats.aggregate(Avg('threePPerc'))['threePPerc__avg']
+        freethrow_p = stats.aggregate(Avg('freeThrowPerc'))['freeThrowPerc__avg']
+        footer = ['Avg', points_pg, assists_pg, rebounds_pg, three_pp, freethrow_p]
+    elif sport == "soccer":
+        goals_scored = stats.aggregate(Avg('goalsScored'))['goalsScored__avg']
+        shots = stats.aggregate(Avg('shots'))['shots__avg']
+        saves = stats.aggregate(Avg('saves'))['saves__avg']
+        fouls = stats.aggregate(Avg('fouls'))['fouls__avg']
+        minutes_played = stats.aggregate(Avg('minutesPlayed'))['minutesPlayed__avg']
+        footer = ['Avg', goals_scored, shots, saves, fouls, minutes_played]
+    else:
+        passing_yards = stats.aggregate(Avg('passingYards'))['passingYards__avg']
+        rushing_yards = stats.aggregate(Avg('rushingYards'))['rushingYards__avg']
+        tackles = stats.aggregate(Avg('tackles'))['tackles__avg']
+        sacks = stats.aggregate(Avg('sacks'))['sacks__avg']
+        interceptions = stats.aggregate(Avg('interceptions'))['interceptions__avg']
+        footer = ['Avg', passing_yards, rushing_yards, tackles, sacks, interceptions]
+    return footer
 
 def table_header(sport):
     if sport == "baseball":

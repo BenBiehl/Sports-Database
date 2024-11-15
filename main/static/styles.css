@@ -311,3 +311,7 @@ td {
 .profile-container button {
     padding: 8px 20px;
 }
+
+.avg {
+    color: #007acc;
+}

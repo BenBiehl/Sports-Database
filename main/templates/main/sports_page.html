@@ -66,6 +66,14 @@
             {% endif %}
         </tr>
     {% endfor %}
+    <tr>
+        <th>{{ avg_stats_footer.0 }}</th>
+        <th>{{ avg_stats_footer.1|floatformat:2 }}</th>
+        <th>{{ avg_stats_footer.2|floatformat:2 }}</th>
+        <th>{{ avg_stats_footer.3|floatformat:2 }}</th>
+        <th>{{ avg_stats_footer.4|floatformat:2 }}</th>
+        <th>{{ avg_stats_footer.5|floatformat:2 }}</th>
+    </tr>
     </table>
     {% else %}
         <h2>There aren't any {{ sport|capfirst }} stats, try adding some?</h2>
