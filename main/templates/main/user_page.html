@@ -24,29 +24,41 @@
     <h1>{{ user.userName }}'s Profile</h1>
     <div class="profile-container">
         <img src="{% static "images/default_picture.jpg" %}" style="width: 200px; height: auto;">
-        {% if user.isAdmin %}
-        <p>User is an admin</p>
-        {% else %}
-        <p>User is not an admin</p>
-        {% endif %}
-        <p>Favorite Team: {{ user.teamName }}</p>
+        
+    <!-- Profile Details Section -->
+    <div class="profile-details">
+        <p><strong>User Type:</strong> 
+            {% if user.isAdmin %}
+            Admin
+            {% else %}
+            Regular User
+            {% endif %}
+        </p>
+        <p><strong>Favorite Team:</strong> {{ user.teamName }}</p>
+    </div>
 
         <section class="favorite-athlete-section">
+            <h2>Select Your Favorite Athlete</h2>
             <form method="post" class="favorite-athlete-form">
                 {% csrf_token %}
                 {{ form }}
                 <button type="submit" class="btn-secondary">Save</button>
             </form>
-
+        
             {% if user.favAthlete %}
             <div class="favorite-athlete-info">
-                <p><strong>Favorite Athlete:</strong> {{ user.favAthlete.firstName }} {{ user.favAthlete.lastName }}</p>
-                <p><em>{{ user.favAthlete.sport|capfirst }}</em> | <em>{{ user.favAthlete.teamName }}</em></p>
+                <p><strong>Favorite Athlete:</strong></p>
+                <a href="{% url 'athlete_page' sport=user.favAthlete.sport athlete_id=user.favAthlete.id %}">
+                    {{ user.favAthlete.firstName }} {{ user.favAthlete.lastName }}
+                </a>
+                <p>Sport: <em>{{ user.favAthlete.sport|capfirst }}</em></p>
+                <p>Team: <em>{{ user.favAthlete.teamName }}</em></p>
             </div>
             {% else %}
             <p>No favorite athlete selected.</p>
             {% endif %}
         </section>
+        
         
         <div class="additional-buttons">
             <form action="{% url 'landing_page' %}" method="get">

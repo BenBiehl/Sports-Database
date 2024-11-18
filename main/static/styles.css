@@ -328,3 +328,12 @@ td {
 .avg {
     color: #007acc;
 }
+
+.profile-details {
+    margin-top: 20px;
+    font-size: 1rem;
+}
+
+.profile-details p {
+    margin: 5px 0;
+}
