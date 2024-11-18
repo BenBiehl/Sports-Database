@@ -36,6 +36,7 @@
                 <div class="info-items">
                     <p>Wins: {{ athlete.wins }}</p>
                     <p>Losses: {{ athlete.losses }}</p>
+                    <p>Winrate: {{ athlete.winRate|floatformat:2 }}%</p>
                     <p>Join Year: {{ athlete.joinYear }}</p>
                     <p>Team: {{ athlete.teamName }}</p>
                     <p>Position: {{ athlete.position }}</p>

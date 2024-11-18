@@ -222,7 +222,7 @@ def add_athlete(request, sport):
             firstName=athlete_form.cleaned_data['firstName'],
             lastName=athlete_form.cleaned_data['lastName'],
             teamName=athlete_form.cleaned_data['teamName'],
-            sport=sport.capitalize()
+            sport=sport
         )
         athlete.save()
 
@@ -477,7 +477,7 @@ def get_avg(stats, sport):
         fouls = stats.aggregate(Avg('fouls'))['fouls__avg']
         minutes_played = stats.aggregate(Avg('minutesPlayed'))['minutesPlayed__avg']
         footer = ['Avg', goals_scored, shots, saves, fouls, minutes_played]
-    else:
+    elif sport == "football":
         passing_yards = stats.aggregate(Avg('passingYards'))['passingYards__avg']
         rushing_yards = stats.aggregate(Avg('rushingYards'))['rushingYards__avg']
         tackles = stats.aggregate(Avg('tackles'))['tackles__avg']
