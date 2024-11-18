@@ -25,13 +25,12 @@ class Athlete(models.Model):
     sport = models.CharField(max_length=20, choices=SPORT_CHOICES, default='Baseball')
     teamName = models.CharField(max_length=20, default='N/A')
     position = models.CharField(max_length=20, default='N/A', blank=True, null=True)
-    gamesPlayed = models.IntegerField(default=0, blank=True, null=True)
     numViews = models.IntegerField(default=0, blank=True, null=True)
     
     def winRate(self):
         if self.wins + self.losses == 0:
             return 0
-        return self.wins / (self.wins + self.losses)
+        return (self.wins / (self.wins + self.losses)) * 100
 
     def __str__(self):
         return f"{self.firstName} {self.lastName}"
@@ -41,7 +40,6 @@ class User(models.Model):
     passWord = models.CharField(max_length=20)
     isAdmin = models.BooleanField(default=False)
     teamName = models.CharField(max_length=20, blank=True)
-    userView = models.IntegerField(default=1, blank=True)
     favAthlete = models.ForeignKey(Athlete, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

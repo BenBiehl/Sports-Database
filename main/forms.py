@@ -79,7 +79,7 @@ class FootballForm(forms.ModelForm):
 class EditAthleteForm(forms.ModelForm):
     class Meta:
         model = Athlete
-        fields = ['firstName', 'lastName', 'height', 'weight', 'age', 'wins', 'losses', 'joinYear', 'teamName', 'position', 'gamesPlayed']
+        fields = ['firstName', 'lastName', 'height', 'weight', 'age', 'wins', 'losses', 'joinYear', 'teamName', 'position']
         widgets = {
             'firstName': forms.TextInput(attrs={'placeholder': 'First Name', 'style': 'width: 200px;'}),
             'lastName': forms.TextInput(attrs={'placeholder': 'Last Name', 'style': 'width: 200px;'}),
@@ -91,7 +91,6 @@ class EditAthleteForm(forms.ModelForm):
             'wins': forms.NumberInput(attrs={'placeholder': 'Wins', 'style': 'width: 200px;'}),
             'losses': forms.NumberInput(attrs={'placeholder': 'Losses', 'style': 'width: 200px;'}),
             'joinYear': forms.NumberInput(attrs={'placeholder': 'Join Year', 'style': 'width: 200px;'}),
-            'gamesPlayed': forms.NumberInput(attrs={'placeholder': 'Games Played', 'style': 'width: 200px;'})
         }
 
 class AthleteSearchForm(forms.Form):

@@ -292,11 +292,10 @@ def athlete_page(request, sport, athlete_id):
             is_admin = False
 
     athlete_id = int(athlete_id)
-    athlete = Athlete.objects.filter(id=athlete_id).first()
+    athlete = Athlete.objects.get(id=athlete_id)
     athlete.numViews += 1
     athlete.save(update_fields=['numViews'])
 
-    athlete_stats = None
     if sport == 'baseball':
         athlete_stats = get_object_or_404(BaseballStat, athlete=athlete)
     elif sport == 'basketball':
@@ -305,6 +304,8 @@ def athlete_page(request, sport, athlete_id):
         athlete_stats = get_object_or_404(SoccerStat, athlete=athlete)
     elif sport == 'football':
         athlete_stats = get_object_or_404(FootballStat, athlete=athlete)
+    else:
+        athlete_stats = None
 
     context = {
         "athlete": athlete,
