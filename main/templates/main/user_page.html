@@ -37,7 +37,6 @@
     </div>
 
         <section class="favorite-athlete-section">
-            <h2>Select Your Favorite Athlete</h2>
             <form method="post" class="favorite-athlete-form">
                 {% csrf_token %}
                 {{ form }}
@@ -57,7 +56,6 @@
             <p>No favorite athlete selected.</p>
             {% endif %}
         </section>
-        
         
         <div class="additional-buttons">
             <form action="{% url 'landing_page' %}" method="get">
