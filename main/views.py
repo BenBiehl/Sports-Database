@@ -253,7 +253,7 @@ def add_athlete(request, sport):
                 fouls=sport_form.cleaned_data['fouls'],
                 minutesPlayed=sport_form.cleaned_data['minutesPlayed']
             )
-        else:
+        elif sport == "football":
             FootballStat.objects.create(
                 athlete=athlete,
                 passingYards=sport_form.cleaned_data['passingYards'],

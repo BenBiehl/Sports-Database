@@ -47,33 +47,33 @@ class User(models.Model):
     
 class BaseballStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    battingAvg = models.FloatField(blank=True)
-    homeRuns = models.IntegerField(blank=True)
-    era = models.FloatField(blank=True)
-    rbi = models.IntegerField(blank=True)
-    stolenBases = models.IntegerField(blank=True)
+    battingAvg = models.FloatField(blank=True, default=0)
+    homeRuns = models.IntegerField(blank=True, default=0)
+    era = models.FloatField(blank=True, default=0)
+    rbi = models.IntegerField(blank=True, default=0)
+    stolenBases = models.IntegerField(blank=True, default=0)
 
 class BasketballStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    pointsPG = models.FloatField(blank=True)
-    assistsPG = models.FloatField(blank=True)
-    reboundsPG = models.FloatField(blank=True)
-    threePPerc = models.FloatField(blank=True)
-    freeThrowPerc = models.FloatField(blank=True)
+    pointsPG = models.FloatField(blank=True, default=0)
+    assistsPG = models.FloatField(blank=True, default=0)
+    reboundsPG = models.FloatField(blank=True, default=0)
+    threePPerc = models.FloatField(blank=True, default=0)
+    freeThrowPerc = models.FloatField(blank=True, default=0)
 
 class SoccerStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    goalsScored = models.IntegerField(blank=True)
-    shots = models.IntegerField(blank=True)
-    saves = models.IntegerField(blank=True)
-    fouls = models.IntegerField(blank=True)
-    minutesPlayed = models.IntegerField(blank=True)
+    goalsScored = models.IntegerField(blank=True, default=0)
+    shots = models.IntegerField(blank=True, default=0)
+    saves = models.IntegerField(blank=True, default=0)
+    fouls = models.IntegerField(blank=True, default=0)
+    minutesPlayed = models.IntegerField(blank=True, default=0)
 
 class FootballStat(models.Model):
     athlete = models.OneToOneField(Athlete, on_delete=models.CASCADE, primary_key=True)
-    passingYards = models.IntegerField(blank=True)
-    rushingYards = models.IntegerField(blank=True)
-    tackles = models.IntegerField(blank=True)
-    sacks = models.IntegerField(blank=True)
-    interceptions = models.IntegerField(blank=True)
+    passingYards = models.IntegerField(blank=True, default=0)
+    rushingYards = models.IntegerField(blank=True, default=0)
+    tackles = models.IntegerField(blank=True, default=0)
+    sacks = models.IntegerField(blank=True, default=0)
+    interceptions = models.IntegerField(blank=True, default=0)
 
