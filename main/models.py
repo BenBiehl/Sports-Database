@@ -1,6 +1,6 @@
 from django.db import models
 
-# Create your models here.
+# Models
 class GlobalStat(models.Model):
     numUsers = models.IntegerField()
 

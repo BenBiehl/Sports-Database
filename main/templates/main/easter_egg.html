@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Easter Egg</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}" />
+</head>
+<body>
+  <div class="header">
+    <p><a href="{% url 'landing_page' %}">Home</a></p>
+    <div class="header-container">
+        {% if not logged_in %}
+        <p><a href="{% url 'login_page' %}">Login</a></p>
+        <p><a href="{% url 'signup_page' %}">Signup</a></p>
+        {% else %}
+        <p><a href="{% url 'logout' %}">Logout</a></p>
+        <p><a href="{% url 'user_page' curr_user_name %}">Profile</a></p>
+        {% endif %}
+    </div>
+  </div>
+
+  <div class="profile-container">
+    <img src="{% static "images/Gigachad.webp" %}" style="width: 200px; height: auto; margin-top: 40px;">
+    <h1>You found me!</h1>
+    <div class="additional-buttons">
+      <form action="{% url 'landing_page' %}" method="get">
+        <button type="submit" class="btn-secondary">Go back</button>
+      </form>
+  </div>
+</body>
+</html>
+
+

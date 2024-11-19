@@ -16,5 +16,6 @@ urlpatterns = [
     path("<str:sport>/athlete/<str:athlete_id>/edit", views.edit_athlete, name="edit_athlete"),
     path("athlete/search/", views.search_page, name="search_page"),
     path("<str:sport>/athlete/<str:athlete_id>/favorite/<str:user_name>/", views.favorite_athlete, name="favorite_athlete"),
-    path("<str:sport>/athlete/<str:athlete_id>/delete", views.delete_athlete, name="delete_athlete")
+    path("<str:sport>/athlete/<str:athlete_id>/delete", views.delete_athlete, name="delete_athlete"),
+    path("secrets/easter_egg/", views.easter_egg, name="easter_egg")
 ]

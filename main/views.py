@@ -1,13 +1,12 @@
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.db.models import F, Avg
-from django.contrib import messages
 
 from .models import User, GlobalStat, Athlete, BaseballStat, BasketballStat, FootballStat, SoccerStat
 from .forms import LogSignForm, ProfileForm, AddAthleteForm, BaseballForm, BasketballForm, SoccerForm, FootballForm, EditAthleteForm, AthleteSearchForm
 
 # Page Request Functions
 def landing_page(request):
+    # Check if logged in
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
     
@@ -39,7 +38,6 @@ def landing_page(request):
 def search_page(request):
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
-    search_query = request.GET.get('search_query', '')
     
     search_form = AthleteSearchForm(request.GET or None)
     
@@ -62,17 +60,24 @@ def search_page(request):
     }
     return render(request, 'main/search_page.html', context)
 
+def easter_egg(request):
+    return render(request, 'main/easter_egg.html')
+
 def login_page(request):
     invalid_user = False
     invalid_password = False
     invalid_info = False
 
+    # Handle all the form stuff
     if request.method == "POST":
         form = LogSignForm(request.POST)
 
         if form.is_valid():
             user_name = form.cleaned_data["user_name"]
             password = form.cleaned_data["password"]
+
+            if user_name == "easter" and password == "egg":
+                return redirect('easter_egg')
 
             if User.objects.filter(userName=user_name).exists():
                 if User.objects.filter(userName=user_name, passWord=password).exists():
@@ -101,6 +106,7 @@ def login_page(request):
     return render(request, "main/login_page.html", context)
 
 def logout(request):
+    # This essentially logs out the user
     request.session.flush()
     return redirect('landing_page')
 
@@ -170,6 +176,7 @@ def user_page(request, user_name):
     return render(request, "main/user_page.html", context)
 
 def sports_page(request, sport):
+    # Sort num determines what we are sorting by
     sort_num = request.GET.get('sort_num', 0)
     logged_in = request.session.get('logged_in', False)
     curr_user_name = request.session.get('curr_user_name', "")
@@ -282,6 +289,7 @@ def athlete_page(request, sport, athlete_id):
     is_favorited = False
     athlete = get_object_or_404(Athlete, id=athlete_id)
 
+    # Handles favoriting an athlete
     if logged_in and curr_user_name:
         try:
             user = User.objects.get(userName=curr_user_name)
