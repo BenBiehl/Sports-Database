@@ -1,0 +1,78 @@
+-- Django doesn't actually need this for the setup,
+-- so this is just theoretical to fufill requirement.
+
+CREATE TABLE IF NOT EXISTS GlobalStat(
+  numUsers INT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS Athlete (
+  id INT PRIMARY KEY,
+  firstName VARCHAR(20) NOT NULL DEFAULT 'N/A',
+  lastName VARCHAR(20) NOT NULL DEFAULT 'N/A',
+  height VARCHAR(5),
+  weight VARCHAR,
+  birthDate VARCHAR,
+  age INT,
+  wins INT NOT NULL DEFAULT 0,
+  losses INT NOT NULL DEFAULT 0,
+  joinYear INT,
+  sport VARCHAR NOT NULL
+    CHECK (sport in ('baseball', 'basketball', 'soccer', 'football')),
+  teamName VARCHAR(20) NOT NULL DEFAULT 'N/A',
+  position VARCHAR(20) DEFAULT 'N/A',
+  numViews INT DEFAULT 0,
+);
+
+CREATE TABLE IF NOT EXISTS User (
+  userName VARCHAR(20) PRIMARY KEY NOT NULL,
+  passWord VARCHAR(20) NOT NULL,
+  isAdmin BOOLEAN NOT NULL DEFAULT False,
+  teamName VARCHAR(20),
+  favAthlete FOREIGN KEY REFERENCES Athlete
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+);
+
+CREATE TABLE IF NOT EXISTS BaseballStat (
+  athlete FOREIGN KEY REFERENCES Athlete
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  battingAvg FLOAT NOT NULL DEFAULT 0,
+  homeRuns INT NOT NULL DEFAULT 0,
+  era FLOAT NOT NULL DEFAULT 0,
+  rbi INT NOT NULL DEFAULT 0,
+  stolenBases INT NOT NULL DEFAULT 0,
+);
+
+CREATE TABLE IF NOT EXISTS BasketballStat (
+  athlete FOREIGN KEY REFERENCES Athlete
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  pointsPG FLOAT NOT NULL DEFAULT 0,
+  assistsPG FLOAT NOT NULL DEFAULT 0,
+  reboundsPG FLOAT NOT NULL DEFAULT 0,
+  threePPerc FLOAT NOT NULL DEFAULT 0,
+  freeThrowPerc FLOAT NOT NULL DEFAULT 0,
+);
+
+CREATE TABLE IF NOT EXISTS SoccerStat (
+  athlete FOREIGN KEY REFERENCES Athlete
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  goalsScored INT NOT NULL DEFAULT 0,
+  shots INT NOT NULL DEFAULT 0,
+  saves INT NOT NULL DEFAULT 0,
+  fouls INT NOT NULL DEFAULT 0,
+  minutesPlayed INT NOT NULL DEFAULT 0,
+);
+
+CREATE TABLE IF NOT EXISTS FootballStat (
+  athlete FOREIGN KEY REFERENCES Athlete
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+  passingYards INT NOT NULL DEFAULT 0,
+  rushingYards INT NOT NULL DEFAULT 0,
+  tackles INT NOT NULL DEFAULT 0,
+  sacks INT NOT NULL DEFAULT 0,
+  interceptions INT NOT NULL DEFAULT 0,
+);
